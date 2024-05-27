@@ -8,5 +8,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/OpenStreetMapClient/Scenes/SampleScene.unity
+    guid: daf3001302c89eb4380e8f542527579f
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: a83e8224aeb18d64c9c89e84bbc769b2, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 663bb7750c1845244a19bee588698ad0, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 03eab51924b6f094ab669e40927226e1, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: cb5af17cca642e04e92d6ac5b830acb4, type: 2}

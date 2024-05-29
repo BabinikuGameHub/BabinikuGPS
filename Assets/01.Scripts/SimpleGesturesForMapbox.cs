@@ -13,6 +13,7 @@ namespace OSMClient
     {
         [SerializeField] Camera _camera;
         [SerializeField] GameObject _player;
+        private bool isFollowingPlayer;
         public float ZPos = 10;
 
         [Tooltip("Ignores touches over UI elements?")]
@@ -136,6 +137,8 @@ namespace OSMClient
             Input.simulateMouseWithTouches = false;
 
             _map = GetComponent<AbstractMap>();
+
+            isFollowingPlayer = true;
         }
 
         private void Start()
@@ -225,6 +228,9 @@ namespace OSMClient
                 ProcessGesture(touches);
                 return;
             }
+
+            if(isFollowingPlayer)
+                _camera.transform.position = new Vector3( _player.transform.position.x, _camera.transform.position.y, _player.transform.position.z);
         }
 
         private void MouseSimulation(List<Touch> touches)

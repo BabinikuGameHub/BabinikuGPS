@@ -65,6 +65,13 @@ namespace Mapbox.Unity.Utilities
 			return new Vector2d(latitude, longitude);
 		}
 
+		public static String LatLonToString(Vector2d latlon)
+		{
+			string s = $"{latlon.x},{latlon.y}";
+
+			return s;
+		}
+
 		/// <summary>
 		/// Converts WGS84 lat/lon to Spherical Mercator EPSG:900913 xy meters.
 		/// SOURCE: http://stackoverflow.com/questions/12896139/geographic-coordinates-converter.

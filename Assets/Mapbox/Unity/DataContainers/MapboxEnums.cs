@@ -375,7 +375,8 @@
 		OutdoorsAndRecreation = 1 << 3,
 		Services = 1 << 4,
 		Shops = 1 << 5,
-		Transportation = 1 << 6
+		Transportation = 1 << 6,
+		Workout = 1 << 7,
 	}
 
 	public enum FeatureProcessingStage

@@ -6,6 +6,7 @@
 	using Mapbox.Unity.MeshGeneration.Factories;
 	using Mapbox.Unity.Utilities;
 	using System.Collections.Generic;
+    using Mapbox.Unity.Location;
 
 	public class SpawnOnMap : MonoBehaviour
 	{
@@ -14,8 +15,8 @@
 
 		[SerializeField]
 		[Geocode]
-		string[] _locationStrings;
-		Vector2d[] _locations;
+		List<string> _locationStrings;
+		List<Vector2d> _locations;
 
 		[SerializeField]
 		float _spawnScale = 100f;
@@ -27,9 +28,9 @@
 
 		void Start()
 		{
-			_locations = new Vector2d[_locationStrings.Length];
+			_locations = new();
 			_spawnedObjects = new List<GameObject>();
-			for (int i = 0; i < _locationStrings.Length; i++)
+			for (int i = 0; i < _locationStrings.Count; i++)
 			{
 				var locationString = _locationStrings[i];
 				_locations[i] = Conversions.StringToLatLon(locationString);
@@ -51,5 +52,19 @@
 				spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 			}
 		}
+
+		public void CreatePOI()
+		{
+			Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+			string currLocString = Conversions.LatLonToString(currentLocation);
+			GameObject newPOI = Instantiate(_markerPrefab);
+
+            newPOI.transform.localPosition = _map.GeoToWorldPosition(currentLocation, true);
+            newPOI.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+			_spawnedObjects.Add(newPOI);
+			_locationStrings.Add(currLocString);
+			_locations.Add(currentLocation);
+        }
 	}
 }

@@ -19,8 +19,10 @@
 		List<Vector2d> _locations;
 
 		[SerializeField]
-		float _spawnScale = 100f;
+		float _spawnScale = 1f;
 
+		[SerializeField]
+		private GameObject _poiHolderObject;
 		[SerializeField]
 		GameObject _markerPrefab;
 
@@ -34,7 +36,7 @@
 			{
 				var locationString = _locationStrings[i];
 				_locations[i] = Conversions.StringToLatLon(locationString);
-				var instance = Instantiate(_markerPrefab);
+				GameObject instance = Instantiate(_markerPrefab, _poiHolderObject.transform);
 				instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
 				instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 				_spawnedObjects.Add(instance);
@@ -48,7 +50,7 @@
 			{
 				var spawnedObject = _spawnedObjects[i];
 				var location = _locations[i];
-				spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location, true);
+				spawnedObject.transform.position = _map.GeoToWorldPosition(location, true);
 				spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 			}
 		}
@@ -57,14 +59,29 @@
 		{
 			Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
 			string currLocString = Conversions.LatLonToString(currentLocation);
-			GameObject newPOI = Instantiate(_markerPrefab);
+			GameObject newPOI = Instantiate(_markerPrefab, _poiHolderObject.transform);
 
-            newPOI.transform.localPosition = _map.GeoToWorldPosition(currentLocation, true);
+            newPOI.transform.position = _map.GeoToWorldPosition(currentLocation, true);
             newPOI.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 
 			_spawnedObjects.Add(newPOI);
 			_locationStrings.Add(currLocString);
 			_locations.Add(currentLocation);
+        }
+
+		public void CalculateArea()
+		{
+			double area = 0;
+
+			if(_spawnedObjects.Count < 3)
+			{
+                Debug.Log($"Not Enough Points");
+                return;
+            }
+
+			area = GeoAreaCalculator.CalculateArea(_locations[0].x, _locations[0].y, _locations[1].x, _locations[1].y, _locations[2].x, _locations[2].y);
+
+			Debug.Log($"Calculated Area is {area}");
         }
 	}
 }

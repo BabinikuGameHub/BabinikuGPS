@@ -1,4 +1,5 @@
-﻿using Mapbox.Unity.Map;
+﻿using Mapbox.Map;
+using Mapbox.Unity.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -173,17 +174,25 @@ namespace OSMClient
         private void Gestures_OnRotate(float dAng)
         {
             if (!EnableGestures) return;
-
+ 
             switch (RotatingMode)
             {
                 case RotatingMode.RotateCamera:
                     _camera.transform.Rotate(new Vector3(0, dAng, 0), Space.World);
                     var a = _camera.transform.rotation.eulerAngles.y;
                     _player.transform.rotation = Quaternion.Euler(90, a, 0);
+
+
+                    _map.transform.Rotate(0, 0, dAng, Space.World);
+
                     break;
                 case RotatingMode.RotatePlayer:
                     _player.transform.Rotate(new Vector3(0, -dAng, 0), Space.World);
                     _camera.transform.rotation = Quaternion.Euler(90, 0, 0);
+                    _map.UpdateMap();
+
+                    _map.transform.Rotate(0, 0, dAng, Space.World);
+
                     break;
             }
         }

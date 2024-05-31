@@ -299,7 +299,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 114105500982122791}
-  _locationStrings: []
+  _locationStrings:
+  - 60.1918526,24.9687767
+  - 60.1921272,24.9670258
+  - ' 60.1916847,24.9668083'
   _spawnScale: 1
   _poiHolderObject: {fileID: 508432189}
   _markerPrefab: {fileID: 9174831814700796352, guid: b353ef6114d1f754eb92a32ddf800a30, type: 3}
@@ -1074,8 +1077,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0811e354e55423a4db58042d8bf78a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 8030623}
-  touchStartPosition: {x: 0, y: 0}
 --- !u!114 &1256406071
 MonoBehaviour:
   m_ObjectHideFlags: 0

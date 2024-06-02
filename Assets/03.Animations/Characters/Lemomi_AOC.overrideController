@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lemomi_AOC
+  m_Controller: {fileID: 9100000, guid: d810e3ea6bd8a02478b96aaba51dafea, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ea4b5580750a7af4d967975a2907f06b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b96e8c85909b9b14db1d62ab66017bc1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ca4f73f0c8f09334f9ed01fe672f0619, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: af2d7d9118f27ce46905d36d415d1661, type: 2}

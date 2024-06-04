@@ -9,7 +9,12 @@ public class GeoAreaCalculator
 
     static double DegToRad(double degrees)
     {
-        return degrees * Mathf.PI / 180.0;
+        return degrees * Math.PI / 180.0;
+    }
+
+    static double RadToDegree(double rad)
+    {
+        return rad * 180.0 / Math.PI; 
     }
 
     static double Haversine(double lat1, double lon1, double lat2, double lon2)
@@ -22,16 +27,6 @@ public class GeoAreaCalculator
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt((1 - a)));
         return EarthRadius * c;
     }
-
-    //public static double SphericalTriangleArea(double a, double b, double c)
-    //{
-    //    double alpha = Math.Acos(Math.Cos(c) / (Math.Sin(a) * Math.Sin(b)));
-    //    double beta = Math.Acos(Math.Cos(a) / (Math.Sin(b) * Math.Sin(c)));
-    //    double gamma = Math.Acos(Math.Cos(b) / (Math.Sin(a) * Math.Sin(c)));
-
-    //    double area = Math.Pow(6371000, 2) * Math.Acos(Math.Cos(alpha) * Math.Cos(beta) + Math.Sin(alpha) * Math.Sin(beta) * Math.Cos(gamma));
-    //    return area;
-    //}
 
     public static double SphericalTriangleArea(double a, double b, double c)
     {
@@ -52,14 +47,26 @@ public class GeoAreaCalculator
         // Calculate the spherical excess
         double sphericalExcess = alpha + beta + gamma - Math.PI;
 
-        double area = sphericalExcess * (EarthRadius * EarthRadius); ;
+        double area1 = sphericalExcess * (EarthRadius * EarthRadius); 
 
-        double s = (a + b + c) / 2;
+        double alphaDegree = RadToDegree(alpha);
+        double betaDegree = RadToDegree(beta);
+        double gammaDegree = RadToDegree(gamma);
 
-        double flatArea = Math.Sqrt(s * (s-a) * (s-b) * (s-c));
+        double sphericalExcessDegree = alphaDegree + betaDegree + gammaDegree - 180;
+
+        double area2 = sphericalExcessDegree * (EarthRadius * EarthRadius);
 
         // Calculate the area of the spherical triangle
-        return area;
+        return area1;
+    }
+
+    public static double FlatTriangleArea(double a, double b, double c)
+    {
+        double s = (a + b + c) / 2;
+
+        // Calculate the area of the spherical triangle
+        return Math.Sqrt(s * (s - a) * (s - b) * (s - c));
     }
 
     public static double CalculateArea(double lat1, double lon1, double lat2, double lon2, double lat3, double lon3)
@@ -72,6 +79,12 @@ public class GeoAreaCalculator
         //double radiusEarth = 6371000; // Earth's radius in meters
         //return E * radiusEarth * radiusEarth;
 
-        return SphericalTriangleArea(a, b, c);
+        //double sphericalArea = SphericalTriangleArea(a, b, c);
+        double flatArea = FlatTriangleArea(a, b, c);
+
+        //Debug.Log($"Calculated Spherical Area is {sphericalArea}");
+        //Debug.Log($"Calculated Flat Area is {flatArea}");
+
+        return flatArea;
     }
 }

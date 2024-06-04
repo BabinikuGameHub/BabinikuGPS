@@ -9,7 +9,9 @@
 
 	public class QuadTreeCameraMovement : MonoBehaviour
 	{
-		[SerializeField]
+		public static QuadTreeCameraMovement Instance;
+
+        [SerializeField]
 		[Range(1, 20)]
 		public float _panSpeed = 1.0f;
 
@@ -23,8 +25,12 @@
 		AbstractMap _mapManager;
 
 		[SerializeField]
+		GameObject _playerCharacter;
+
+        [SerializeField]
 		bool _useDegreeMethod;
 
+		private bool _isFollowingPlayer;
 		private Vector3 _origin;
 		private Vector3 _mousePosition;
 		private Vector3 _mousePositionPrevious;
@@ -35,7 +41,12 @@
 
 		void Awake()
 		{
-			if (null == _referenceCamera)
+			Instance = this;
+
+            _isFollowingPlayer = true;
+
+
+            if (null == _referenceCamera)
 			{
 				_referenceCamera = GetComponent<Camera>();
 				if (null == _referenceCamera) { Debug.LogErrorFormat("{0}: reference camera not set", this.GetType().Name); }
@@ -57,7 +68,11 @@
 			{
 				_dragStartedOnUI = false;
 			}
-		}
+
+			if(_isFollowingPlayer)
+				_referenceCamera.transform.position = new Vector3(_playerCharacter.transform.position.x, _referenceCamera.transform.position.y, _playerCharacter.transform.position.z);
+
+        }
 
 
 		private void LateUpdate()
@@ -167,6 +182,19 @@
 				UseMeterConversion();
 			}
 		}
+
+		public void SetCameraPosition(Vector3 cameraPoint)
+		{
+			_isFollowingPlayer = false;
+
+            _referenceCamera.transform.position = new Vector3(cameraPoint.x, _referenceCamera.transform.position.y, cameraPoint.z);
+        }
+
+		public void ResetCameraPosition()
+		{
+			_isFollowingPlayer = true;
+
+        }
 
 		void UseMeterConversion()
 		{

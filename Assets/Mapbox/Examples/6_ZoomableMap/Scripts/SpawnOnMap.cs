@@ -7,11 +7,16 @@
 	using Mapbox.Unity.Utilities;
 	using System.Collections.Generic;
     using Mapbox.Unity.Location;
+    using System.Linq;
+    using System.Collections;
 
-	public class SpawnOnMap : MonoBehaviour
+    public class SpawnOnMap : MonoBehaviour
 	{
 		[SerializeField]
 		AbstractMap _map;
+
+		[SerializeField]
+		Camera _mapCamera;
 
 		[SerializeField]
 		[Geocode]
@@ -27,6 +32,10 @@
 		GameObject _markerPrefab;
 
 		List<GameObject> _spawnedObjects;
+
+		bool _panSequence;
+		float _baseZoom;
+		double _areaScore;
 
 		void Awake()
 		{
@@ -53,6 +62,12 @@
 				spawnedObject.transform.position = _map.GeoToWorldPosition(location, true);
 				spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 			}
+
+			if (_panSequence)
+			{
+				PanCameraToFitPOI();
+
+            }
 		}
 
 		public void CreatePOI()
@@ -73,15 +88,90 @@
 		{
 			double area = 0;
 
+			_baseZoom = _map.Zoom;
+
 			if(_spawnedObjects.Count < 3)
 			{
                 Debug.Log($"Not Enough Points");
                 return;
             }
 
-			area = GeoAreaCalculator.CalculateArea(_locations[0].x, _locations[0].y, _locations[1].x, _locations[1].y, _locations[2].x, _locations[2].y);
 
-			Debug.Log($"Calculated Area is {area}");
+			Vector2d centerPosition = GetCenterPosition(_locations);
+
+			QuadTreeCameraMovement.Instance.SetCameraPosition(new Vector3(0, 0, 0));
+
+			_map.UpdateMap(centerPosition);
+
+			_panSequence = true;
+
+
+            _areaScore = GeoAreaCalculator.CalculateArea(_locations[0].x, _locations[0].y, _locations[1].x, _locations[1].y, _locations[2].x, _locations[2].y);
+
+
+        }
+
+		private void PanCameraToFitPOI()
+		{
+            bool allInView = _spawnedObjects.All(x => IsWithinViewPort(_mapCamera.WorldToViewportPoint(x.transform.position)) == true);
+
+            if (!allInView)
+            {
+                _map.UpdateMap(_map.Zoom * 0.99f);
+			}
+			else
+			{
+				_panSequence = false;
+				StartCoroutine(ScoreUI());
+            }
+        }
+
+
+		IEnumerator ScoreUI()
+		{
+            Debug.Log($"{_areaScore} 점 획득!");
+
+			yield return new WaitForSeconds(3f);
+
+			_map.UpdateMap(_baseZoom);
+
+			QuadTreeCameraMovement.Instance.ResetCameraPosition();
+        }
+
+		Vector2d GetCenterPosition(List<Vector2d> locations)
+		{
+			double maxX = locations[0].x;
+			double minX = locations[0].x;
+			double minY = locations[0].y;
+			double maxY = locations[0].y;
+
+			foreach(Vector2d location in locations.Skip(1))
+			{
+				if(location.x > maxX) maxX = location.x;
+				if(location.x < minY) minY = location.x;
+				if(location.y > maxY) maxY = location.y;
+				if(location.y < minY) minY = location.y;
+			}
+
+			double midX = (minX + maxX) / 2;
+            double midY = (minY + maxY) / 2;
+
+			Vector2d newValue = new Vector2d(midX, midY);
+
+			double x = newValue.x;
+			double y = newValue.y;
+
+			return newValue;
+        }
+
+		bool IsWithinViewPort(Vector3 viewPos)
+		{
+			if (viewPos.x > 1 || viewPos.x < 0)
+				return false;
+            if (viewPos.y > 1 || viewPos.y < 0)
+                return false;
+
+			return true;
         }
 	}
 }

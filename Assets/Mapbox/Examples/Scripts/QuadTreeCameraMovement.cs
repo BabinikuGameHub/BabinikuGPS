@@ -6,8 +6,9 @@
 	using UnityEngine;
 	using UnityEngine.EventSystems;
 	using System;
+    using System.Collections;
 
-	public class QuadTreeCameraMovement : MonoBehaviour
+    public class QuadTreeCameraMovement : MonoBehaviour
 	{
 		public static QuadTreeCameraMovement Instance;
 
@@ -39,12 +40,11 @@
 		private Plane _groundPlane = new Plane(Vector3.up, 0);
 		private bool _dragStartedOnUI = false;
 
+		Coroutine _cameraResetRoutine;
+
 		void Awake()
 		{
 			Instance = this;
-
-            _isFollowingPlayer = true;
-
 
             if (null == _referenceCamera)
 			{
@@ -57,7 +57,12 @@
 			};
 		}
 
-		public void Update()
+        private void OnEnable()
+        {
+			ResetCameraPosition();
+        }
+
+        public void Update()
 		{
 			if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
 			{
@@ -193,8 +198,16 @@
 		public void ResetCameraPosition()
 		{
 			_isFollowingPlayer = true;
+            //_mapManager.UpdateMap(_mapManager.CenterLatitudeLongitude, _mapManager.Zoom);
 
         }
+
+		IEnumerator ResetCameraCoroutine(float time)
+		{
+			yield return new WaitForSeconds(time);
+
+			ResetCameraPosition();
+		}
 
 		void UseMeterConversion()
 		{
@@ -213,7 +226,15 @@
             //if (Input.GetMouseButton(0))
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
 			{
-				var mousePosScreen = Input.mousePosition;
+				_isFollowingPlayer = false;
+
+				if(_cameraResetRoutine != null)
+				{
+					StopCoroutine(_cameraResetRoutine);
+				}
+                _cameraResetRoutine = StartCoroutine(ResetCameraCoroutine(5));
+
+                var mousePosScreen = Input.mousePosition;
 				//assign distance of camera to ground plane to z, otherwise ScreenToWorldPoint() will always return the position of the camera
 				//http://answers.unity3d.com/answers/599100/view.html
 				mousePosScreen.z = _referenceCamera.transform.localPosition.y;

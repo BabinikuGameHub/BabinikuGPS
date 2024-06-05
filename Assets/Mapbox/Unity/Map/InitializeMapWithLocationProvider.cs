@@ -21,8 +21,14 @@
 		{
 			yield return null;
 			_locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
-			_locationProvider.OnLocationUpdated += LocationProvider_OnLocationUpdated; ;
+			_locationProvider.OnLocationUpdated += LocationProvider_OnLocationUpdated;
 		}
+
+		void OnEnable()
+        {
+            _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
+            _locationProvider.OnLocationUpdated += LocationProvider_OnLocationUpdated;
+        }
 
 		void LocationProvider_OnLocationUpdated(Unity.Location.Location location)
 		{

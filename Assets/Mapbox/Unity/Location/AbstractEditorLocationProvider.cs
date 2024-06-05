@@ -27,7 +27,13 @@
 		}
 #endif
 
-		IEnumerator QueryLocation()
+        private void OnEnable()
+        {
+            _wait = new WaitForSeconds(_updateInterval);
+            StartCoroutine(QueryLocation());
+        }
+
+        IEnumerator QueryLocation()
 		{
 			// HACK: Let others register before we send our first event. 
 			// Often this happens in Start.

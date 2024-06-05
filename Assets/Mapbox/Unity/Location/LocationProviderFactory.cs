@@ -133,15 +133,19 @@ namespace Mapbox.Unity.Location
 				DontDestroyOnLoad(gameObject);
 			}
 
-			InjectEditorLocationProvider();
-			InjectDeviceLocationProvider();
 		}
 
-		/// <summary>
-		/// Injects the editor location provider.
-		/// Depending on the platform, this method and calls to it will be stripped during compile.
-		/// </summary>
-		[System.Diagnostics.Conditional("UNITY_EDITOR")]
+        private void OnEnable()
+        {
+            InjectEditorLocationProvider();
+            InjectDeviceLocationProvider();
+        }
+
+        /// <summary>
+        /// Injects the editor location provider.
+        /// Depending on the platform, this method and calls to it will be stripped during compile.
+        /// </summary>
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
 		void InjectEditorLocationProvider()
 		{
 			Debug.LogFormat("LocationProviderFactory: Injected EDITOR Location Provider - {0}", _editorLocationProvider.GetType());

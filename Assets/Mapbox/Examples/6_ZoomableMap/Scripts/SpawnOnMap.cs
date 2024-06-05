@@ -46,7 +46,7 @@
 				var locationString = _locationStrings[i];
 				_locations.Add(Conversions.StringToLatLon(locationString));
 				GameObject instance = Instantiate(_markerPrefab, _poiHolderObject.transform);
-				instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
+				instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);	
 				instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 				_spawnedObjects.Add(instance);
 			}

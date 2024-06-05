@@ -131,14 +131,31 @@ namespace Mapbox.Unity.Location
 			}
 		}
 
+        private void OnEnable()
+        {
+            _currentLocation.Provider = "phone";
+            _wait1sec = new WaitForSeconds(1f);
+            _waitUpdateTime = _updateTimeInMilliSeconds < 500 ? new WaitForSeconds(0.5f) : new WaitForSeconds((float)_updateTimeInMilliSeconds / 1000.0f);
 
-		/// <summary>
-		/// Enable location and compass services.
-		/// Sends continuous location and heading updates based on 
-		/// _desiredAccuracyInMeters and _updateDistanceInMeters.
-		/// </summary>
-		/// <returns>The location routine.</returns>
-		IEnumerator PollLocationRoutine()
+            if (null == _userHeadingSmoothing) { _userHeadingSmoothing = transform.gameObject.AddComponent<AngleSmoothingNoOp>(); }
+            if (null == _deviceOrientationSmoothing) { _deviceOrientationSmoothing = transform.gameObject.AddComponent<AngleSmoothingNoOp>(); }
+
+            _lastPositions = new CircularBuffer<Vector2d>(_maxLastPositions);
+
+            if (_pollRoutine == null)
+            {
+                _pollRoutine = StartCoroutine(PollLocationRoutine());
+            }
+        }
+
+
+        /// <summary>
+        /// Enable location and compass services.
+        /// Sends continuous location and heading updates based on 
+        /// _desiredAccuracyInMeters and _updateDistanceInMeters.
+        /// </summary>
+        /// <returns>The location routine.</returns>
+        IEnumerator PollLocationRoutine()
 		{
 #if UNITY_EDITOR
 			while (!UnityEditor.EditorApplication.isRemoteConnected)

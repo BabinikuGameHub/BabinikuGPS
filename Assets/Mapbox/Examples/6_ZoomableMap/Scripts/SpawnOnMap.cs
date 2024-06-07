@@ -37,7 +37,11 @@
 		float _baseZoom;
 		double _areaScore;
 
-		void Awake()
+
+        ILocationProvider _locationProvider;
+		Unity.Location.Location _currentLocation;
+
+        void Awake()
 		{
 			_locations = new();
 			_spawnedObjects = new List<GameObject>();
@@ -50,7 +54,10 @@
 				instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 				_spawnedObjects.Add(instance);
 			}
-		}
+
+            _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
+            _locationProvider.OnLocationUpdated += UpdateCurrentLocation;
+        }
 
 		private void Update()
 		{
@@ -70,7 +77,14 @@
             }
 		}
 
-		public void CreatePOI()
+        void UpdateCurrentLocation(Unity.Location.Location location)
+		{
+			_currentLocation = location;
+
+        }
+
+
+        public void CreatePOI()
 		{
 			Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
 			string currLocString = Conversions.LatLonToString(currentLocation);

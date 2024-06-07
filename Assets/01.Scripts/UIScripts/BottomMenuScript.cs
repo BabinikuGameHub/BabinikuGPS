@@ -16,6 +16,9 @@ public class BottomMenuScript : MonoBehaviour
 
     private void Start()
     {
+
+        //GameManager.Instance.SwitchToMapCamera();
+
         GameManager.Instance.SwitchToMainCamera();
         _cafeField.SetActive(true);
         _cafeUI.SetActive(true);

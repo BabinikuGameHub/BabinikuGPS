@@ -133,13 +133,11 @@ namespace Mapbox.Unity.Location
 				DontDestroyOnLoad(gameObject);
 			}
 
-		}
 
-        private void OnEnable()
-        {
             InjectEditorLocationProvider();
             InjectDeviceLocationProvider();
         }
+
 
         /// <summary>
         /// Injects the editor location provider.
@@ -159,7 +157,8 @@ namespace Mapbox.Unity.Location
 		[System.Diagnostics.Conditional("NOT_UNITY_EDITOR")]
 		void InjectDeviceLocationProvider()
 		{
-			int AndroidApiVersion = 0;
+
+            int AndroidApiVersion = 0;
 			var regex = new Regex(@"(?<=API-)-?\d+");
 			Match match = regex.Match(SystemInfo.operatingSystem); // eg 'Android OS 8.1.0 / API-27 (OPM2.171019.029/4657601)'
 			if (match.Success) { int.TryParse(match.Groups[0].Value, out AndroidApiVersion); }

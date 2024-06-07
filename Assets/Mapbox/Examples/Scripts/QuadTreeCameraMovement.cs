@@ -7,6 +7,8 @@
 	using UnityEngine.EventSystems;
 	using System;
     using System.Collections;
+    using Mapbox.Unity.Location;
+    using static UnityEditor.FilePathAttribute;
 
     public class QuadTreeCameraMovement : MonoBehaviour
 	{
@@ -42,7 +44,10 @@
 
 		Coroutine _cameraResetRoutine;
 
-		void Awake()
+        ILocationProvider _locationProvider;
+        Unity.Location.Location _currentLocation;
+
+        void Awake()
 		{
 			Instance = this;
 
@@ -55,7 +60,11 @@
 			{
 				_isInitialized = true;
 			};
-		}
+
+
+            _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
+            _locationProvider.OnLocationUpdated += UpdateCurrentLocation;
+        }
 
         private void OnEnable()
         {
@@ -97,7 +106,13 @@
 			}
 		}
 
-		void HandleMouseAndKeyBoard()
+
+        void UpdateCurrentLocation(Unity.Location.Location location)
+        {
+            _currentLocation = location;
+        }
+
+        void HandleMouseAndKeyBoard()
 		{
 			// zoom
 			float scrollDelta = 0.0f;
@@ -196,9 +211,9 @@
         }
 
 		public void ResetCameraPosition()
-		{
-			_isFollowingPlayer = true;
-            //_mapManager.UpdateMap(_mapManager.CenterLatitudeLongitude, _mapManager.Zoom);
+        {
+			//_isFollowingPlayer = true;
+            _mapManager.UpdateMap(_currentLocation.LatitudeLongitude);
 
         }
 

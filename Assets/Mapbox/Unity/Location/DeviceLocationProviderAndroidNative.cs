@@ -99,32 +99,62 @@
 
 		protected virtual void Awake()
 		{
-			// safe measures to not run when disabled or not selected as location provider
-			if (!enabled) { return; }
-			if (!transform.gameObject.activeInHierarchy) { return; }
+			//// safe measures to not run when disabled or not selected as location provider
+			//if (!enabled) { return; }
+			//if (!transform.gameObject.activeInHierarchy) { return; }
 
 
-			_wait1sec = new WaitForSeconds(1);
-			_wait5sec = new WaitForSeconds(5);
-			_wait60sec = new WaitForSeconds(60);
-			// throttle if entered update intervall is unreasonably low
-			_waitUpdateTime = _updateTimeInMilliSeconds < 500 ? new WaitForSeconds(0.5f) : new WaitForSeconds((float)_updateTimeInMilliSeconds / 1000.0f);
+			//_wait1sec = new WaitForSeconds(1);
+			//_wait5sec = new WaitForSeconds(5);
+			//_wait60sec = new WaitForSeconds(60);
+			//// throttle if entered update intervall is unreasonably low
+			//_waitUpdateTime = _updateTimeInMilliSeconds < 500 ? new WaitForSeconds(0.5f) : new WaitForSeconds((float)_updateTimeInMilliSeconds / 1000.0f);
 
-			_currentLocation.IsLocationServiceEnabled = false;
-			_currentLocation.IsLocationServiceInitializing = true;
+			//_currentLocation.IsLocationServiceEnabled = false;
+			//_currentLocation.IsLocationServiceInitializing = true;
 
-			if (Application.platform == RuntimePlatform.Android)
-			{
-				getActivityContext();
-				getGpsInstance(true);
-				getSensorInstance();
+			//if (Application.platform == RuntimePlatform.Android)
+			//{
+			//	getActivityContext();
+			//	getGpsInstance(true);
+			//	getSensorInstance();
 
-				if (_pollLocation == null)
-				{
-					_pollLocation = StartCoroutine(locationRoutine());
-				}
-			}
+			//	if (_pollLocation == null)
+			//	{
+			//		_pollLocation = StartCoroutine(locationRoutine());
+			//	}
+			//}
 		}
+
+		void OnEnable()
+		{
+			Debug.Log("Android Location Provider enabled");
+
+            if (!enabled) { return; }
+            if (!transform.gameObject.activeInHierarchy) { return; }
+
+
+            _wait1sec = new WaitForSeconds(1);
+            _wait5sec = new WaitForSeconds(5);
+            _wait60sec = new WaitForSeconds(60);
+            // throttle if entered update intervall is unreasonably low
+            _waitUpdateTime = _updateTimeInMilliSeconds < 500 ? new WaitForSeconds(0.5f) : new WaitForSeconds((float)_updateTimeInMilliSeconds / 1000.0f);
+
+            _currentLocation.IsLocationServiceEnabled = false;
+            _currentLocation.IsLocationServiceInitializing = true;
+
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                getActivityContext();
+                getGpsInstance(true);
+                getSensorInstance();
+
+                if (_pollLocation == null)
+                {
+                    _pollLocation = StartCoroutine(locationRoutine());
+                }
+            }
+        }
 
 
 		private void getActivityContext()

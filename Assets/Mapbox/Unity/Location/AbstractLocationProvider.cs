@@ -23,6 +23,8 @@
 
 		protected virtual void SendLocation(Location location)
 		{
+			//Debug.Log("Location Updated");
+
 			OnLocationUpdated(location);
 		}
 	}

@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147402950722907188}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51,10 +51,10 @@ MonoBehaviour:
       latitudeLongitude: 37.784179, -122.401583
       zoom: 17
     extentOptions:
-      extentType: 1
+      extentType: 0
       defaultExtents:
         cameraBoundsOptions:
-          camera: {fileID: 0}
+          camera: {fileID: 7127710975675634778}
           visibleBuffer: 0
           disposeBuffer: 0
         rangeAroundCenterOptions:
@@ -74,7 +74,7 @@ MonoBehaviour:
       unityTileSize: 100
     loadingTexture: {fileID: 2800000, guid: e2896a92727704803a9c422b043eae89, type: 3}
     tileMaterial: {fileID: 2100000, guid: b9f23e9bce724fa4daac57ecded470b8, type: 2}
-  _initializeOnStart: 1
+  _initializeOnStart: 0
   _imagery:
     _layerProperty:
       sourceType: 6
@@ -87,8 +87,8 @@ MonoBehaviour:
           UserName: 
       rasterOptions:
         useRetina: 1
-        useCompression: 0
-        useMipMap: 0
+        useCompression: 1
+        useMipMap: 1
   _terrain:
     _layerProperty:
       sourceType: 0
@@ -255,7 +255,6 @@ GameObject:
   - component: {fileID: 6423111845642633936}
   - component: {fileID: 7127710975675634778}
   - component: {fileID: 8970206461507414685}
-  - component: {fileID: 1402652508110918006}
   - component: {fileID: 5853955544969966069}
   m_Layer: 0
   m_Name: MapCamera
@@ -332,14 +331,6 @@ Camera:
   m_StereoSeparation: 0.022
 --- !u!124 &8970206461507414685
 Behaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942658411966903564}
-  m_Enabled: 1
---- !u!81 &1402652508110918006
-AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -670,7 +661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2070546342830601477
 Transform:
   m_ObjectHideFlags: 0
@@ -872,7 +863,7 @@ MonoBehaviour:
   _deviceLocationProviderAndroid: {fileID: 9125154916102749478}
   _editorLocationProvider: {fileID: 6133436170433749479}
   _transformLocationProvider: {fileID: 3636458774035310950}
-  _dontDestroyOnLoad: 0
+  _dontDestroyOnLoad: 1
 --- !u!1 &7436169351685732156
 GameObject:
   m_ObjectHideFlags: 0

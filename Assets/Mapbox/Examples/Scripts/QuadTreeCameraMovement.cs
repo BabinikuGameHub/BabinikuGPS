@@ -212,8 +212,10 @@
 
 		public void ResetCameraPosition()
         {
-			//_isFollowingPlayer = true;
-            _mapManager.UpdateMap(_currentLocation.LatitudeLongitude);
+			_isFollowingPlayer = true;
+
+			if(_currentLocation.Provider != null)
+				_mapManager.UpdateMap(_currentLocation.LatitudeLongitude);	
 
         }
 

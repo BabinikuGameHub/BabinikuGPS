@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
+  m_Name: SorukaSO
+  m_EditorClassIdentifier: 
+  Name: "\uC18C\uB8E8\uCE74"
+  CharacterSprite: {fileID: -1553928576, guid: a2dbd8f17948d1740b7c8d0f6a5ef022, type: 3}
+  CharacterAnimation: {fileID: 0}

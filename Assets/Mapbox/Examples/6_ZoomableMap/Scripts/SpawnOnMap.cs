@@ -30,6 +30,8 @@
 		private GameObject _poiHolderObject;
 		[SerializeField]
 		GameObject _markerPrefab;
+		[SerializeField]
+		ScorePopupScript _scorePopupScript; 
 
 		List<GameObject> _spawnedObjects;
 
@@ -41,9 +43,14 @@
         ILocationProvider _locationProvider;
 		Unity.Location.Location _currentLocation;
 
-        void Awake()
+        void Start()
 		{
+#if UNITY_ANDROID
+			_locationStrings = new();
+#endif
+
 			_locations = new();
+
 			_spawnedObjects = new List<GameObject>();
 			for (int i = 0; i < _locationStrings.Count; i++)
 			{
@@ -86,6 +93,12 @@
 
         public void CreatePOI()
 		{
+			if(_spawnedObjects.Count == 3)
+			{
+				_scorePopupScript.PopupEvent("이미 PIN을 3곳에 찍었습니다!");
+				return;
+            }
+
 			Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
 			string currLocString = Conversions.LatLonToString(currentLocation);
 			GameObject newPOI = Instantiate(_markerPrefab, _poiHolderObject.transform);
@@ -100,13 +113,11 @@
 
 		public void CalculateArea()
 		{
-			double area = 0;
-
 			_baseZoom = _map.Zoom;
 
 			if(_spawnedObjects.Count < 3)
-			{
-                Debug.Log($"Not Enough Points");
+            {
+                _scorePopupScript.PopupEvent("PIN이 찍힌 곳이 3곳보다 적습니다!");
                 return;
             }
 
@@ -122,7 +133,9 @@
 
             _areaScore = GeoAreaCalculator.CalculateArea(_locations[0].x, _locations[0].y, _locations[1].x, _locations[1].y, _locations[2].x, _locations[2].y);
 
+			GameManager.Instance.AddScore((int)_areaScore);
 
+			_scorePopupScript.PopupScoreEvent((int)_areaScore);
         }
 
 		private void PanCameraToFitPOI()

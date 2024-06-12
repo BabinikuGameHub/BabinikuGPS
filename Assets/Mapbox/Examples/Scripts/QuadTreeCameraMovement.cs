@@ -1,15 +1,14 @@
-﻿namespace Mapbox.Examples
-{
-	using Mapbox.Unity.Map;
-	using Mapbox.Unity.Utilities;
-	using Mapbox.Utils;
-	using UnityEngine;
-	using UnityEngine.EventSystems;
-	using System;
-    using System.Collections;
-    using Mapbox.Unity.Location;
-    using static UnityEditor.FilePathAttribute;
+﻿using Mapbox.Unity.Map;
+using Mapbox.Unity.Utilities;
+using Mapbox.Utils;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using System;
+using System.Collections;
+using Mapbox.Unity.Location;
 
+namespace Mapbox.Examples
+{
     public class QuadTreeCameraMovement : MonoBehaviour
 	{
 		public static QuadTreeCameraMovement Instance;
@@ -47,7 +46,7 @@
         ILocationProvider _locationProvider;
         Unity.Location.Location _currentLocation;
 
-        void Awake()
+        void Start()
 		{
 			Instance = this;
 
@@ -61,7 +60,7 @@
 				_isInitialized = true;
 			};
 
-
+			_isFollowingPlayer = true;
             _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
             _locationProvider.OnLocationUpdated += UpdateCurrentLocation;
         }

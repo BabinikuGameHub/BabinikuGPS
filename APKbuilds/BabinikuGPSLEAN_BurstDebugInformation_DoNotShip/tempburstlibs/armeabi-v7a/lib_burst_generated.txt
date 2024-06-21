@@ -11,6 +11,7 @@ Library: G:\Unity\Projects\BabinikuGPS\Temp\BurstOutput\tempburstlibs\armeabi-v7
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.2D.IK.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
+--assembly-defines=Unity.AI.Navigation;
 --assembly-defines=Unity.RenderPipelines.Universal.Config.Runtime;
 --assembly-defines=Unity.VisualScripting.Flow;
 --assembly-defines=Unity.RenderPipelines.Core.ShaderLibrary;
@@ -127,6 +128,7 @@ Library: G:\Unity\Projects\BabinikuGPS\Temp\BurstOutput\tempburstlibs\armeabi-v7
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.2D.IK.Runtime;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
+--assembly-defines=Unity.AI.Navigation;
 --assembly-defines=Unity.RenderPipelines.Universal.Config.Runtime;
 --assembly-defines=Unity.VisualScripting.Flow;
 --assembly-defines=Unity.RenderPipelines.Core.ShaderLibrary;

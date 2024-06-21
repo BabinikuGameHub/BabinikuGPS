@@ -16,16 +16,15 @@ public class BottomMenuScript : MonoBehaviour
 
     private void Start()
     {
+        OnMapButtonClick();
 
-        //GameManager.Instance.SwitchToMapCamera();
-
-        GameManager.Instance.SwitchToMainCamera();
-        _cafeField.SetActive(true);
-        _cafeUI.SetActive(true);
-        _mapField.SetActive(false);
-        _mapUI.SetActive(false);
-        _gachaField.SetActive(false);
-        _gachaUI.SetActive(false);
+        //GameManager.Instance.SwitchToMainCamera();
+        //_cafeField.SetActive(true);
+        //_cafeUI.SetActive(true);
+        //_mapField.SetActive(false);
+        //_mapUI.SetActive(false);
+        //_gachaField.SetActive(false);
+        //_gachaUI.SetActive(false);
     }
 
     //가챠화면으로 전환

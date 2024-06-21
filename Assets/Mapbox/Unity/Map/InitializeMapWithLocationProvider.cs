@@ -17,26 +17,26 @@
 			_map.InitializeOnStart = false;
 		}
 
-		protected virtual IEnumerator Start()
+		//protected virtual IEnumerator Start()
+		//{
+		//	yield return null;
+		//	_locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
+		//	_locationProvider.OnLocationUpdated += LocationProvider_OnLocationUpdated;
+		//}
+
+		void OnEnable()
+		{
+			StartCoroutine(StartProcess());
+		}
+
+		IEnumerator StartProcess()
 		{
 			yield return null;
 			_locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
 			_locationProvider.OnLocationUpdated += LocationProvider_OnLocationUpdated;
 		}
 
-		//void OnEnable()
-		//{
-		//	StartCoroutine(StartProcess());
-		//}
-
-  //      IEnumerator StartProcess()
-  //      {
-  //          yield return null;
-  //          _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
-  //          _locationProvider.OnLocationUpdated += LocationProvider_OnLocationUpdated;
-  //      }
-
-        void LocationProvider_OnLocationUpdated(Unity.Location.Location location)
+		void LocationProvider_OnLocationUpdated(Unity.Location.Location location)
 		{
 			Debug.Log("Map Initialized");
             Debug.Log(location);

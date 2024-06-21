@@ -45,9 +45,9 @@
 
         void Start()
 		{
-#if UNITY_ANDROID
-			_locationStrings = new();
-#endif
+//#if UNITY_ANDROID
+//			_locationStrings = new();
+//#endif
 
 			_locations = new();
 

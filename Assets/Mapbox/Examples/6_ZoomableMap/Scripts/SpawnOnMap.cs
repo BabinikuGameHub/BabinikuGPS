@@ -12,6 +12,8 @@
 
     public class SpawnOnMap : MonoBehaviour
 	{
+		public static SpawnOnMap Instance;
+
 		[SerializeField]
 		AbstractMap _map;
 
@@ -39,17 +41,25 @@
 		float _baseZoom;
 		double _areaScore;
 
+		public bool IsDebug = false;
 
         ILocationProvider _locationProvider;
 		Unity.Location.Location _currentLocation;
+
+        private void Awake()
+        {
+			Instance = this;
+        }
 
         void Start()
 		{
 //#if UNITY_ANDROID
 //			_locationStrings = new();
 //#endif
+			if(IsDebug)
+                _locationStrings = new();
 
-			_locations = new();
+            _locations = new();
 
 			_spawnedObjects = new List<GameObject>();
 			for (int i = 0; i < _locationStrings.Count; i++)
@@ -88,6 +98,30 @@
 		{
 			_currentLocation = location;
 
+        }
+
+		public void CreatePOI(CharacterSO characterSO)
+		{
+            if (_spawnedObjects.Count == 3)
+            {
+                _scorePopupScript.PopupEvent("이미 PIN을 3곳에 찍었습니다!");
+                return;
+            }
+
+			GameManager.Instance.UseCharacter(characterSO);
+
+            Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+            string currLocString = Conversions.LatLonToString(currentLocation);
+            GameObject newPOI = Instantiate(_markerPrefab, _poiHolderObject.transform);
+			CharPrefabScript charPrefabScript = newPOI.GetComponent<CharPrefabScript>();
+			charPrefabScript.IntializeFromSO(characterSO);
+
+            newPOI.transform.position = _map.GeoToWorldPosition(currentLocation, true);
+            newPOI.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+            _spawnedObjects.Add(newPOI);
+            _locationStrings.Add(currLocString);
+            _locations.Add(currentLocation);
         }
 
 

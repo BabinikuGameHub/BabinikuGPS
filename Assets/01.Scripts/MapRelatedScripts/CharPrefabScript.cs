@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class POIScript : MonoBehaviour
+public class CharPrefabScript : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
 
     private string _locationString;
+
+    private int _currentLevel = 1;
 
     [SerializeField]
     private CharacterSO _characterSO;
@@ -19,7 +21,7 @@ public class POIScript : MonoBehaviour
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    void IntializeFromSO(CharacterSO SO)
+    public void IntializeFromSO(CharacterSO SO)
     {
         if (_characterSO == null)
         {

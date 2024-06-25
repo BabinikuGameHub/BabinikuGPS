@@ -21,7 +21,7 @@ public class CharacterPOIScript : MonoBehaviour
 
     public void ClickThisCharacter()
     {
-        SpawnOnMap.Instance.CreatePOI(_characterSO);
+        MapPOIManager.Instance.CreatePOI(_characterSO);
 
         POIPanelScript parentScript = gameObject.GetComponentInParent<POIPanelScript>();
         parentScript.TurnOffPanel();

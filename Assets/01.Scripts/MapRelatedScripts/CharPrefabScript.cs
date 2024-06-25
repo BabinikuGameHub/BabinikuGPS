@@ -1,17 +1,15 @@
+using Mapbox.Examples;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharPrefabScript : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
 
-    private string _locationString;
-
-    private int _currentLevel = 1;
-
-    [SerializeField]
-    private CharacterSO _characterSO;
+    private POICharacterData _poiData;
 
     //[SerializeField] private POIData _data;
 
@@ -21,14 +19,11 @@ public class CharPrefabScript : MonoBehaviour
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public void IntializeFromSO(CharacterSO SO)
+    public void InitializeFromPOIData(POICharacterData POIData)
     {
-        if (_characterSO == null)
-        {
-            _characterSO = SO;
-            _spriteRenderer.sprite = _characterSO.CharacterSprite;
-        }
-    }
+        _poiData = POIData;
 
+        _spriteRenderer.sprite = GachaManager.Instance.GetSObyID(POIData.SOID).CharacterSprite;
+    }
 
 }

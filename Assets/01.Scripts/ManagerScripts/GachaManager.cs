@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GachaManager : MonoBehaviour
@@ -38,4 +39,14 @@ public class GachaManager : MonoBehaviour
         return returnList;
     }
 
+    public List<CharacterSO> GetCharacterList()
+    {
+        return AllCharacterList;
+    }
+
+    public CharacterSO GetSObyID(string ID)
+    {
+        return AllCharacterList.First(x => x.uniqueID.Equals(ID));
+
+    }
 }

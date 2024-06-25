@@ -22,11 +22,11 @@ public class POIPanelScript : MonoBehaviour
     {
         ClearPanel();
 
-        Dictionary<CharacterSO, List<GameObject>> charDict = GameManager.Instance.GetCurrentCharacterDict();
+        Dictionary<CharacterSO, int> charDict = GameManager.Instance.GetCurrentCharacterDict();
 
-        foreach(KeyValuePair<CharacterSO, List<GameObject>> pairs in charDict)
+        foreach(KeyValuePair<CharacterSO, int> pairs in charDict)
         {
-            int num = pairs.Value.Count;
+            int num = pairs.Value;
             GameObject newPOI = Instantiate(_poiPrefab, _characterHolder.transform);
             CharacterPOIScript cpoiScript = newPOI.GetComponent<CharacterPOIScript>();
             cpoiScript.InitializeWSO(pairs.Key, num);

@@ -1,15 +1,16 @@
-﻿namespace Mapbox.Examples
-{
-	using UnityEngine;
-	using Mapbox.Utils;
-	using Mapbox.Unity.Map;
-	using Mapbox.Unity.MeshGeneration.Factories;
-	using Mapbox.Unity.Utilities;
-	using System.Collections.Generic;
-    using Mapbox.Unity.Location;
-    using System.Linq;
-    using System.Collections;
+﻿using UnityEngine;
+using Mapbox.Utils;
+using Mapbox.Unity.Map;
+using Mapbox.Unity.Utilities;
+using System.Collections.Generic;
+using Mapbox.Unity.Location;
+using System.Linq;
+using System.Collections;
+using System;
+using global::Unity.VisualScripting;
 
+namespace Mapbox.Examples
+{
     public class SpawnOnMap : MonoBehaviour
 	{
 		public static SpawnOnMap Instance;
@@ -22,14 +23,15 @@
 
 		[SerializeField]
 		[Geocode]
-		List<string> _locationStrings;
 		List<Vector2d> _locations;
 
-		[SerializeField]
+		List<POICharacterData> _locationDatas;
+
+        [SerializeField]
 		float _spawnScale = 1f;
 
 		[SerializeField]
-		private GameObject _poiHolderObject;
+		GameObject _poiHolderObject;
 		[SerializeField]
 		GameObject _markerPrefab;
 		[SerializeField]
@@ -53,30 +55,51 @@
 
         void Start()
 		{
-//#if UNITY_ANDROID
-//			_locationStrings = new();
-//#endif
 			if(IsDebug)
-                _locationStrings = new();
+                _locationDatas = new();
 
             _locations = new();
+            _spawnedObjects = new List<GameObject>();
 
-			_spawnedObjects = new List<GameObject>();
-			for (int i = 0; i < _locationStrings.Count; i++)
-			{
-				var locationString = _locationStrings[i];
-				_locations.Add(Conversions.StringToLatLon(locationString));
-				GameObject instance = Instantiate(_markerPrefab, _poiHolderObject.transform);
-				instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);	
-				instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-				_spawnedObjects.Add(instance);
-			}
+            if (_locationDatas.Count != 0)
+				SetLocations(_locationDatas);
 
             _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
             _locationProvider.OnLocationUpdated += UpdateCurrentLocation;
         }
 
-		private void Update()
+		public List<string> GetLocationStrings()
+		{
+			return _locationDatas.Select(x => x.locationString).ToList();
+        }
+
+		public List<POICharacterData> GetPOIDatas()
+		{
+			return _locationDatas;
+		}
+
+		public void SetLocations(List<POICharacterData> locationdatas)
+		{
+			_locationDatas = locationdatas;
+
+            for (int i = 0; i < _locationDatas.Count; i++)
+            {
+                POICharacterData locationData = _locationDatas[i];
+                _locations.Add(Conversions.StringToLatLon(locationData.locationString));
+
+                GameObject instance = Instantiate(_markerPrefab, _poiHolderObject.transform);
+                CharPrefabScript charPrefabScript = instance.GetComponent<CharPrefabScript>();
+
+				charPrefabScript.InitializeFromPOIData(locationData);
+
+                instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
+                instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                _spawnedObjects.Add(instance);
+            }
+
+        }
+
+        private void Update()
 		{
 			int count = _spawnedObjects.Count;
 			for (int i = 0; i < count; i++)
@@ -111,39 +134,32 @@
 			GameManager.Instance.UseCharacter(characterSO);
 
             Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
-            string currLocString = Conversions.LatLonToString(currentLocation);
             GameObject newPOI = Instantiate(_markerPrefab, _poiHolderObject.transform);
 			CharPrefabScript charPrefabScript = newPOI.GetComponent<CharPrefabScript>();
-			charPrefabScript.IntializeFromSO(characterSO);
+
+            string currLocString = Conversions.LatLonToString(currentLocation);
+			DateTime createdTime = DateTime.Now;
+
+
+            POICharacterData poidata = new POICharacterData
+            {
+                SOID = characterSO.uniqueID,
+                locationString = currLocString,
+                TimeStamp = createdTime,
+            };
+
+            charPrefabScript.InitializeFromPOIData(poidata);
 
             newPOI.transform.position = _map.GeoToWorldPosition(currentLocation, true);
             newPOI.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 
+
+			_locationDatas.Add(poidata);
+
             _spawnedObjects.Add(newPOI);
-            _locationStrings.Add(currLocString);
             _locations.Add(currentLocation);
         }
 
-
-        public void CreatePOI()
-		{
-			if(_spawnedObjects.Count == 3)
-			{
-				_scorePopupScript.PopupEvent("이미 PIN을 3곳에 찍었습니다!");
-				return;
-            }
-
-			Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
-			string currLocString = Conversions.LatLonToString(currentLocation);
-			GameObject newPOI = Instantiate(_markerPrefab, _poiHolderObject.transform);
-
-            newPOI.transform.position = _map.GeoToWorldPosition(currentLocation, true);
-            newPOI.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-			_spawnedObjects.Add(newPOI);
-			_locationStrings.Add(currLocString);
-			_locations.Add(currentLocation);
-        }
 
 		public void CalculateArea()
 		{
@@ -234,5 +250,7 @@
 
 			return true;
         }
+
+		
 	}
 }

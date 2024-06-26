@@ -1,6 +1,7 @@
 ﻿using Mapbox.Examples;
 using Mapbox.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
     public GameObject MapPanel;
     public GameObject GachaPanel;
 
+    [SerializeField]
+    ScorePopupScript _scorePopupScript;
+
     [SerializeField] private GameObject _charHolder;
     [SerializeField] private int _currentScore;
 
@@ -32,7 +36,32 @@ public class GameManager : MonoBehaviour
 
     private PlayerData _playerData;
     private string saveFilePath;
-    
+
+    private bool _hasReset = false;
+    private DateTime _lastResetTime;
+
+    public DateTime LastResetTime
+    {
+        get
+        {
+            if(_lastResetTime == null)
+            {
+                return DateTime.Now;
+            }
+            else
+            {
+                return _lastResetTime;
+            }
+        }
+
+        set
+        {
+            _lastResetTime = value;
+        }
+    }
+
+    private int _resolveNum = 1;
+
     private void Awake()
     {
         Instance = this;
@@ -42,6 +71,62 @@ public class GameManager : MonoBehaviour
     {
         saveFilePath = Path.Combine(Application.persistentDataPath, "playerData.json");
         LoadProgress();
+
+
+        InvokeRepeating("CheckResetTime", 0f, 60f);
+    }
+
+    //초기화 관련
+    //일일 초기화 매커니즘
+    // 일단 초기화 -> 초기화시간 기록 및 초기화한 사실(_hasReset) 기록 -> 게임 매 분(update나 invoke repeating 활용) 마다 체크 -> 아직 하루가 안 지났으면 그냥 return -> 4시가 지났다면 _hasReset을 false로 지정
+    // -> _hasReset == false 면 초기화 
+
+
+    void CheckResetTime()
+    {
+
+        if (IsResetTime(LastResetTime))
+        {
+            LastResetTime = DateTime.Now;
+            newDayReset();
+        }
+
+    }
+
+    bool IsResetTime(DateTime lastTime)
+    {
+        DateTime currentTime = System.DateTime.Now;
+
+
+        DateTime fourAmToday = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 4, 0, 0);
+
+        if (currentTime > lastTime && currentTime > fourAmToday && lastTime < fourAmToday)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    void ResetResolveNum()
+    {
+        _resolveNum = 1;
+    }
+
+    void ResetPOI()
+    {
+        _playerData.ResetPOI();
+    }
+
+    public void newDayReset()
+    {
+        ResetResolveNum();
+        ResetPOI();
+
+        SaveProgress();
+
+
+        _scorePopupScript.PopupEvent("초기화 완료!");
     }
 
     //세이브 로드 관련
@@ -52,6 +137,7 @@ public class GameManager : MonoBehaviour
             points = _currentScore,
             currentCharacters = _currentCharacters.Values.ToArray(),
             poiData = MapPOIManager.Instance.GetPOIDatas(),
+            ResetTime = LastResetTime,
         };
 
 
@@ -106,6 +192,8 @@ public class GameManager : MonoBehaviour
         _currentCharacters = newDict;
     }
 
+    public void SetLastResetTime(DateTime lastResetTime) { LastResetTime = lastResetTime;}
+
     private void OnApplicationQuit()
     {
         SaveProgress();
@@ -148,6 +236,19 @@ public class GameManager : MonoBehaviour
         return _currentCharacters;
     }
 
+    public bool CalculateResolve()
+    {
+        if(_resolveNum > 0)
+        {
+            _resolveNum--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     //캐릭터 습득,손실 관련
     public void UseCharacter(CharacterSO charSO)
     {
@@ -180,6 +281,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    //공용
+
+    public void PopupMessage(string message)
+    {
+        _scorePopupScript.PopupEvent(message);
+    }
 }
 
 [System.Serializable]
@@ -188,11 +296,19 @@ public class PlayerData
     public int points;
     public int[] currentCharacters;
     public List<POICharacterData> poiData;
+    public DateTime ResetTime;
 
     public void ApplyData()
     {
         GameManager.Instance.SetPoints(points);
         GameManager.Instance.SetCharacters(currentCharacters);
+        GameManager.Instance.SetLastResetTime(ResetTime);
         MapPOIManager.Instance.SetLocations(poiData);
+    }
+
+    public void ResetPOI()
+    {
+        poiData = new();
+        MapPOIManager.Instance.ResetPOIs();
     }
 }

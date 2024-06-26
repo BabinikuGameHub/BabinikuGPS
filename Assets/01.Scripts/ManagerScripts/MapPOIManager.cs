@@ -8,6 +8,7 @@ using System.Linq;
 using System.Collections;
 using System;
 using global::Unity.VisualScripting;
+using TMPro;
 
 namespace Mapbox.Examples
 {
@@ -52,7 +53,9 @@ namespace Mapbox.Examples
         float _baseZoom;
         double _areaScore;
 
+        [Header("Debug Related")]
         public bool IsDebug = false;
+        [SerializeField] public TextMeshProUGUI _currentCoordinate;
 
         private void Awake()
         {
@@ -65,7 +68,7 @@ namespace Mapbox.Examples
                 _locationDatas = new();
 
             _locations = new();
-            _spawnedObjects = new List<GameObject>();
+            _spawnedObjects = new();
 
             if (_locationDatas.Count != 0)
                 SetLocations(_locationDatas);
@@ -119,8 +122,27 @@ namespace Mapbox.Examples
                 PanCameraToFitPOI();
 
             }
+
+            //Debug current location
+
+            Vector2d currentLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+            string currLocString = Conversions.LatLonToString(currentLocation);
+            _currentCoordinate.text = currLocString;
+
         }
 
+
+        public void ResetPOIs()
+        {
+            foreach(GameObject poi in _spawnedObjects)
+            {
+                Destroy(poi);
+            }
+
+            _spawnedObjects = new();
+            _locationDatas = new();
+            _locations = new();
+        }
 
         public void CreatePOI(CharacterSO characterSO)
         {
@@ -129,6 +151,7 @@ namespace Mapbox.Examples
                 _scorePopupScript.PopupEvent("이미 PIN을 3곳에 찍었습니다!");
                 return;
             }
+
 
             GameManager.Instance.UseCharacter(characterSO);
 
@@ -157,6 +180,9 @@ namespace Mapbox.Examples
 
             _spawnedObjects.Add(newPOI);
             _locations.Add(currentLocation);
+
+
+            GameManager.Instance.SaveProgress();
         }
 
 
@@ -167,6 +193,12 @@ namespace Mapbox.Examples
             if (_spawnedObjects.Count < 3)
             {
                 _scorePopupScript.PopupEvent("PIN이 찍힌 곳이 3곳보다 적습니다!");
+                return;
+            }
+
+            if (!GameManager.Instance.CalculateResolve())
+            {
+                _scorePopupScript.PopupEvent("이미 오늘 하루치 결산을 했습니다!");
                 return;
             }
 
@@ -185,6 +217,8 @@ namespace Mapbox.Examples
             GameManager.Instance.AddScore((int)_areaScore);
 
             _scorePopupScript.PopupScoreEvent((int)_areaScore);
+
+            GameManager.Instance.SaveProgress();
         }
 
         private void PanCameraToFitPOI()

@@ -25,5 +25,7 @@ public class GachaButtonScript : MonoBehaviour
 
         GameManager.Instance.AddObtainedCharacters(list);
 
+        GameManager.Instance.SaveProgress();
+
     }
 }

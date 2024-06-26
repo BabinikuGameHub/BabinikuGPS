@@ -1,4 +1,5 @@
 using Mapbox.Unity.Map.Interfaces;
+using Unity.VisualScripting;
 
 namespace Mapbox.Unity.Map
 {
@@ -14,15 +15,16 @@ namespace Mapbox.Unity.Map
 	using Mapbox.Unity.Utilities;
 	using Mapbox.Unity.MeshGeneration.Enums;
 	using Mapbox.Unity.MeshGeneration.Interfaces;
+    using UnityEngine.Rendering;
 
-	/// <summary>
-	/// Map Visualizer
-	/// Represents a map.Doesn’t contain much logic and at the moment, it creates requested tiles and relays them to the factories
-	/// under itself.It has a caching mechanism to reuse tiles and does the tile positioning in unity world.
-	/// Later we’ll most likely keep track of map features here as well to allow devs to query for features easier
-	/// (i.e.query all buildings x meters around any restaurant etc).
-	/// </summary>
-	public abstract class AbstractMapVisualizer : ScriptableObject
+    /// <summary>
+    /// Map Visualizer
+    /// Represents a map.Doesn’t contain much logic and at the moment, it creates requested tiles and relays them to the factories
+    /// under itself.It has a caching mechanism to reuse tiles and does the tile positioning in unity world.
+    /// Later we’ll most likely keep track of map features here as well to allow devs to query for features easier
+    /// (i.e.query all buildings x meters around any restaurant etc).
+    /// </summary>
+    public abstract class AbstractMapVisualizer : ScriptableObject
 	{
 		[SerializeField]
 		[NodeEditorElementAttribute("Factories")]
@@ -234,7 +236,12 @@ namespace Mapbox.Unity.Map
 			if (unityTile == null)
 			{
 				unityTile = new GameObject().AddComponent<UnityTile>();
-				try
+
+				SortingGroup sg = unityTile.gameObject.AddComponent<SortingGroup>();
+				sg.sortingLayerName = "Map";
+
+
+                try
 				{
 					unityTile.MeshRenderer.sharedMaterial = Instantiate(_map.TileMaterial);
 				}

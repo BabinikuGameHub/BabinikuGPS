@@ -7,17 +7,10 @@ using UnityEngine;
 
 public class CharPrefabScript : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private POICharacterData _poiData;
 
-    //[SerializeField] private POIData _data;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
 
     public void InitializeFromPOIData(POICharacterData POIData)
     {

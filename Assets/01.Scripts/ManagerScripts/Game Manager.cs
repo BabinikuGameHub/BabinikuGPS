@@ -16,14 +16,14 @@ public class GameManager : MonoBehaviour
     public Camera MainCamera;
     public Camera MapCamera;
     [SerializeField] GameObject _charPrefab;
+    [SerializeField] GameObject _popupPrefab;
 
     //UI canvas panels
     public GameObject CafePanel;
     public GameObject MapPanel;
     public GameObject GachaPanel;
+    public GameObject CommonPanel;
 
-    [SerializeField]
-    ScorePopupScript _scorePopupScript;
 
     [SerializeField] private GameObject _charHolder;
     [SerializeField] private int _currentScore;
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         SaveProgress();
 
 
-        _scorePopupScript.PopupEvent("초기화 완료!");
+        PopupMessage("초기화 완료!");
     }
 
     //세이브 로드 관련
@@ -286,7 +286,16 @@ public class GameManager : MonoBehaviour
 
     public void PopupMessage(string message)
     {
-        _scorePopupScript.PopupEvent(message);
+        GameObject popup = Instantiate(_popupPrefab, CommonPanel.transform);
+        ScorePopupScript scorePopupScript = popup.GetComponent<ScorePopupScript>();
+        scorePopupScript.PopupEvent(message);
+    }
+
+    public void PopupMessage(int score)
+    {
+        GameObject popup = Instantiate(_popupPrefab, CommonPanel.transform);
+        ScorePopupScript scorePopupScript = popup.GetComponent<ScorePopupScript>();
+        scorePopupScript.PopupScoreEvent(score);
     }
 }
 

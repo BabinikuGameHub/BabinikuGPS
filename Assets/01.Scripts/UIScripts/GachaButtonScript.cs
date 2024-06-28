@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,10 @@ public class GachaButtonScript : MonoBehaviour
         int currentPoint = GameManager.Instance.GetScore();
 
         if (currentPoint < _currentGachaCost)
+        {
+            GameManager.Instance.PopupMessage("포인트가 부족합니다!");
             return;
+        }
 
         GameManager.Instance.SubtractScore(_currentGachaCost);
 

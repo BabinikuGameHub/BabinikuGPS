@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BottomMenuScript : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class BottomMenuScript : MonoBehaviour
     [SerializeField] GameObject _mapUI;
     [SerializeField] GameObject _gachaUI;
 
+    public UnityEvent OnPanelChange;
 
     private void Start()
     {
@@ -37,6 +39,8 @@ public class BottomMenuScript : MonoBehaviour
         _mapUI.SetActive(false);
         _gachaField.SetActive(true);
         _gachaUI.SetActive(true);
+
+        OnPanelChange?.Invoke();
     }
 
     //지도 화면으로 전환
@@ -49,6 +53,8 @@ public class BottomMenuScript : MonoBehaviour
         _mapUI.SetActive(true);
         _gachaField.SetActive(false);
         _gachaUI.SetActive(false);
+
+        OnPanelChange?.Invoke();
     }
 
     //카페 화면으로 전환
@@ -61,5 +67,7 @@ public class BottomMenuScript : MonoBehaviour
         _mapUI.SetActive(false);
         _gachaField.SetActive(false);
         _gachaUI.SetActive(false);
+
+        OnPanelChange?.Invoke();
     }    
 }

@@ -44,8 +44,6 @@ namespace Mapbox.Examples
         GameObject _poiHolderObject;
         [SerializeField]
         GameObject _markerPrefab;
-        [SerializeField]
-        ScorePopupScript _scorePopupScript;
 
         List<GameObject> _spawnedObjects;
 
@@ -148,7 +146,7 @@ namespace Mapbox.Examples
         {
             if (_spawnedObjects.Count == 3)
             {
-                _scorePopupScript.PopupEvent("이미 PIN을 3곳에 찍었습니다!");
+                GameManager.Instance.PopupMessage("이미 PIN을 3곳에 찍었습니다!");
                 return;
             }
 
@@ -192,13 +190,13 @@ namespace Mapbox.Examples
 
             if (_spawnedObjects.Count < 3)
             {
-                _scorePopupScript.PopupEvent("PIN이 찍힌 곳이 3곳보다 적습니다!");
+                GameManager.Instance.PopupMessage("PIN이 찍힌 곳이 3곳보다 적습니다!");
                 return;
             }
 
             if (!GameManager.Instance.CalculateResolve())
             {
-                _scorePopupScript.PopupEvent("이미 오늘 하루치 결산을 했습니다!");
+                GameManager.Instance.PopupMessage("이미 오늘 하루치 결산을 했습니다!");
                 return;
             }
 
@@ -216,7 +214,7 @@ namespace Mapbox.Examples
 
             GameManager.Instance.AddScore((int)_areaScore);
 
-            _scorePopupScript.PopupScoreEvent((int)_areaScore);
+            GameManager.Instance.PopupMessage((int)_areaScore);
 
             GameManager.Instance.SaveProgress();
         }

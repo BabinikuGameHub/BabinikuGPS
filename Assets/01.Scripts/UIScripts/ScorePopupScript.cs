@@ -21,7 +21,9 @@ public class ScorePopupScript : MonoBehaviour
 
         _scoreText.text = text;
 
-        StartCoroutine(PopupCoroutine());
+        Destroy(this.gameObject, 3f);
+
+        //StartCoroutine(PopupCoroutine());
     }
 
     public void PopupScoreEvent(int score)
@@ -30,7 +32,9 @@ public class ScorePopupScript : MonoBehaviour
 
         _scoreText.text = $"{score}점\n 획득!!";
 
-        StartCoroutine(PopupCoroutine());
+        Destroy(this.gameObject, 3f);
+
+        //StartCoroutine(PopupCoroutine());
 
     }
 

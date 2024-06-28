@@ -10,15 +10,10 @@ public class GachaResultPopupScript : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        gameObject.SetActive(false);
-
-    }
 
     public void TurnOffPanel()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     public void InitializeWithSO(List<CharacterSO> list)

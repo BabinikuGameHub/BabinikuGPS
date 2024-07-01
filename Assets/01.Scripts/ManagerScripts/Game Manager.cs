@@ -132,45 +132,13 @@ public class GameManager : MonoBehaviour
     //세이브 로드 관련
     public void SaveProgress()
     {
-        PlayerData data = new PlayerData
-        {
-            points = _currentScore,
-            currentCharacters = _currentCharacters.Values.ToArray(),
-            poiData = MapPOIManager.Instance.GetPOIDatas(),
-            ResetTime = LastResetTime,
-        };
+        PlayerData.SaveProgress(_currentScore, _currentCharacters, LastResetTime);
 
-
-        string json = JsonConvert.SerializeObject(data);
-        File.WriteAllText(saveFilePath, json);
-
-        //PlayerPrefs.SetString("Progress", json);
-        //PlayerPrefs.Save();
     }
 
     public void LoadProgress()
     {
-        if (File.Exists(saveFilePath))
-        {
-            string json = File.ReadAllText(saveFilePath);
-            //string json = PlayerPrefs.GetString("Progress", "");
-
-            _playerData = JsonConvert.DeserializeObject<PlayerData>(json);
-
-
-            _playerData.ApplyData();
-        }
-        else
-        {
-            _playerData = new PlayerData
-            {
-                points = _currentScore,
-                currentCharacters = new int[GachaManager.Instance.GetCharacterList().Count],
-                poiData = new List<POICharacterData>(),
-            };
-
-            _playerData.ApplyData();
-        }
+        _playerData = PlayerData.LoadProgress();
     }
     
     public void SetPoints(int points)
@@ -306,6 +274,69 @@ public class PlayerData
     public int[] currentCharacters;
     public List<POICharacterData> poiData;
     public DateTime ResetTime;
+    public int RemainingPins;
+    public int MaxPins;
+    public void ResetPOI()
+    {
+        poiData = new();
+        MapPOIManager.Instance.ResetPOIs();
+    }
+
+    public static void SaveProgress(int currentScore, Dictionary<CharacterSO, int> currentCharacters, DateTime LastResetTime )
+    {
+        PlayerData data = new PlayerData
+        {
+            points = currentScore,
+            currentCharacters = currentCharacters.Values.ToArray(),
+            poiData = MapPOIManager.Instance.GetPOIDatas(),
+            ResetTime = LastResetTime,
+            RemainingPins = MapPOIManager.Instance.RemainingPin,
+            MaxPins = MapPOIManager.Instance.MaxPin,
+        };
+
+
+        string json = JsonConvert.SerializeObject(data);
+
+
+        string saveFilePath = Path.Combine(Application.persistentDataPath, "playerData.json");
+        File.WriteAllText(saveFilePath, json);
+
+    }
+
+
+    public static PlayerData LoadProgress()
+    {
+
+        string saveFilePath = Path.Combine(Application.persistentDataPath, "playerData.json");
+
+        if (File.Exists(saveFilePath))
+        {
+            string json = File.ReadAllText(saveFilePath);
+            //string json = PlayerPrefs.GetString("Progress", "");
+
+            PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);
+
+
+            playerData.ApplyData();
+
+            return playerData;
+        }
+        else
+        {
+            PlayerData playerData = new PlayerData
+            {
+                points = 25000,
+                currentCharacters = new int[GachaManager.Instance.GetCharacterList().Count],
+                poiData = new List<POICharacterData>(),
+                RemainingPins = 3,
+                MaxPins = 3,
+            };
+
+            playerData.ApplyData();
+
+            return playerData;
+        }
+    }
 
     public void ApplyData()
     {
@@ -313,11 +344,8 @@ public class PlayerData
         GameManager.Instance.SetCharacters(currentCharacters);
         GameManager.Instance.SetLastResetTime(ResetTime);
         MapPOIManager.Instance.SetLocations(poiData);
+        MapPOIManager.Instance.RemainingPin = RemainingPins;
+        MapPOIManager.Instance.MaxPin = MaxPins;
     }
 
-    public void ResetPOI()
-    {
-        poiData = new();
-        MapPOIManager.Instance.ResetPOIs();
-    }
 }

@@ -14,6 +14,10 @@ public class BottomMenuScript : MonoBehaviour
     [SerializeField] GameObject _mapUI;
     [SerializeField] GameObject _gachaUI;
 
+    [SerializeField] GameObject _cafeButton;
+    [SerializeField] GameObject _mapButton;
+    [SerializeField] GameObject _gachaButton;
+
     public UnityEvent OnPanelChange;
 
     private void Start()
@@ -32,6 +36,8 @@ public class BottomMenuScript : MonoBehaviour
     //가챠화면으로 전환
     public void OnGachaButtonClick()
     {
+        OnPanelChange?.Invoke();
+
         GameManager.Instance.SwitchToMainCamera();
         _cafeField.SetActive(false);
         _cafeUI.SetActive(false);
@@ -40,12 +46,17 @@ public class BottomMenuScript : MonoBehaviour
         _gachaField.SetActive(true);
         _gachaUI.SetActive(true);
 
-        OnPanelChange?.Invoke();
+        _gachaButton.SetActive(true);
+        _mapButton.SetActive(false);
+        _cafeButton.SetActive(false);
+
     }
 
     //지도 화면으로 전환
     public void OnMapButtonClick()
     {
+        OnPanelChange?.Invoke();
+
         GameManager.Instance.SwitchToMapCamera();
         _cafeField.SetActive(false);
         _cafeUI.SetActive(false);
@@ -54,12 +65,18 @@ public class BottomMenuScript : MonoBehaviour
         _gachaField.SetActive(false);
         _gachaUI.SetActive(false);
 
-        OnPanelChange?.Invoke();
+        _gachaButton.SetActive(false);
+        _mapButton.SetActive(true);
+        _cafeButton.SetActive(false);
+
     }
 
     //카페 화면으로 전환
     public void OnCafeButtonClick()
     {
+
+        OnPanelChange?.Invoke();
+
         GameManager.Instance.SwitchToMainCamera();
         _cafeField.SetActive(true);
         _cafeUI.SetActive(true);
@@ -68,6 +85,9 @@ public class BottomMenuScript : MonoBehaviour
         _gachaField.SetActive(false);
         _gachaUI.SetActive(false);
 
-        OnPanelChange?.Invoke();
+        _gachaButton.SetActive(false);
+        _mapButton.SetActive(false);
+        _cafeButton.SetActive(true);
+
     }    
 }

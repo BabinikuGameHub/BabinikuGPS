@@ -9,6 +9,7 @@ using System.Collections;
 using System;
 using global::Unity.VisualScripting;
 using TMPro;
+using UnityEngine.Events;
 
 namespace Mapbox.Examples
 {
@@ -51,9 +52,41 @@ namespace Mapbox.Examples
         float _baseZoom;
         double _areaScore;
 
+        private int _remainingPin;
+
+        public int RemainingPin
+        {
+            get
+            {
+                return _remainingPin;
+            }
+            set
+            {
+                _remainingPin = value;
+                OnPinUpdate?.Invoke();
+            }
+        }
+
+        [SerializeField]private int _maxPin;
+
+        public int MaxPin
+        {
+            get
+            {
+                return _maxPin;
+            }
+            set
+            {
+                _maxPin = value;
+                OnPinUpdate?.Invoke();
+            }
+        }
+
         [Header("Debug Related")]
         public bool IsDebug = false;
         [SerializeField] public TextMeshProUGUI _currentCoordinate;
+
+        public UnityEvent OnPinUpdate;
 
         private void Awake()
         {
@@ -82,6 +115,7 @@ namespace Mapbox.Examples
         {
             return _locationDatas;
         }
+
 
         public void SetLocations(List<POICharacterData> locationdatas)
         {
@@ -140,13 +174,15 @@ namespace Mapbox.Examples
             _spawnedObjects = new();
             _locationDatas = new();
             _locations = new();
+
+            _remainingPin = _maxPin;
         }
 
         public void CreatePOI(CharacterSO characterSO)
         {
-            if (_spawnedObjects.Count == 3)
+            if (_remainingPin <= 0)
             {
-                GameManager.Instance.PopupMessage("이미 PIN을 3곳에 찍었습니다!");
+                GameManager.Instance.PopupMessage("이미 사용할 수 있는 PIN을 전부 소모했습니다");
                 return;
             }
 
@@ -179,6 +215,7 @@ namespace Mapbox.Examples
             _spawnedObjects.Add(newPOI);
             _locations.Add(currentLocation);
 
+            _remainingPin--;
 
             GameManager.Instance.SaveProgress();
         }

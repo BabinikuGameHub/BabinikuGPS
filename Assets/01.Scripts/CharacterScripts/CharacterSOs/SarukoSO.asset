@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
   m_Name: SarukoSO
   m_EditorClassIdentifier: 
-  Name: "\uC0AC\uB8E8\uCF54"
+  uniqueID: 90cbc94a-2eae-40c3-be92-d4615117063e
+  CharacterName: "\uC0AC\uB8E8"
   CharacterSprite: {fileID: -148233826, guid: f43c5b91957470540909bdb617618337, type: 3}
   CharacterAnimation: {fileID: 0}

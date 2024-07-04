@@ -167,6 +167,10 @@ namespace Mapbox.Examples
 
 		void ZoomMapUsingTouchOrMouse(float zoomFactor)
 		{
+
+			if (zoomFactor == 0)
+				return;
+
 			var zoom = Mathf.Max(0.0f, Mathf.Min(_mapManager.Zoom + zoomFactor * _zoomSpeed, 21.0f));
 			if (Math.Abs(zoom - _mapManager.Zoom) > 0.0f)
 			{

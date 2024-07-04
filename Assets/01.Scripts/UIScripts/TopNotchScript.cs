@@ -18,11 +18,11 @@ public class TopNotchScript : MonoBehaviour
 
     void UpdateTime()
     {
-        _currentTimeText.text = $"{System.DateTime.UtcNow.ToString("t")}";
+        _currentTimeText.text = $"{System.DateTime.UtcNow.ToLocalTime().ToString("t")}";
     }
 
     void UpdateDate()
     {
-        _currentDateText.text = $"{System.DateTime.UtcNow.ToString("d")}";
+        _currentDateText.text = $"{System.DateTime.UtcNow.ToLocalTime().ToString("d")}";
     }
 }

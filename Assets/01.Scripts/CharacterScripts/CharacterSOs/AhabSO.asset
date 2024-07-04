@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
   m_Name: AhabSO
   m_EditorClassIdentifier: 
-  Name: "\uC5D0\uC774\uD558\uBE0C"
+  uniqueID: 5cbdc94b-4608-4b44-90e7-3adfda123565
+  CharacterName: "\uC5D0\uC774\uD558\uBE0C"
   CharacterSprite: {fileID: -1515270848, guid: 5907ba37fc077cf46b42b9e7a63ee9e3, type: 3}
   CharacterAnimation: {fileID: 0}

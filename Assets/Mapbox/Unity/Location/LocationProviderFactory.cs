@@ -138,6 +138,13 @@ namespace Mapbox.Unity.Location
             InjectDeviceLocationProvider();
         }
 
+        private void OnEnable()
+        {
+			Debug.Log("location provider factory onEnable");
+            InjectEditorLocationProvider();
+            InjectDeviceLocationProvider();
+        }
+
 
         /// <summary>
         /// Injects the editor location provider.

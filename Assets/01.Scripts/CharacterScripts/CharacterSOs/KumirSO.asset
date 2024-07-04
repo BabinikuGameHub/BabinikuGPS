@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
   m_Name: KumirSO
   m_EditorClassIdentifier: 
-  Name: "\uCFE0\uBBF8\uB974"
+  uniqueID: ada89e65-517c-4ea7-8906-b6f1ca36e8dc
+  CharacterName: "\uCFE0\uBBF8\uB974"
   CharacterSprite: {fileID: 305252213, guid: 80ac23868eb3f8c4686e591655fbc11f, type: 3}
   CharacterAnimation: {fileID: 0}

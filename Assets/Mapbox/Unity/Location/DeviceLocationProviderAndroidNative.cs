@@ -69,7 +69,9 @@
 		{
 			try
 			{
-				lock (_lock)
+
+                Debug.Log("shutdown");
+                lock (_lock)
 				{
 					if (null != _gpsInstance)
 					{
@@ -97,9 +99,39 @@
 
 		protected virtual void OnDisable() { shutdown(); }
 
-		protected virtual void Awake()
+		//protected virtual void Awake()
+		//{
+		//	// safe measures to not run when disabled or not selected as location provider
+		//	if (!enabled) { return; }
+		//	if (!transform.gameObject.activeInHierarchy) { return; }
+
+
+		//	_wait1sec = new WaitForSeconds(1);
+		//	_wait5sec = new WaitForSeconds(5);
+		//	_wait60sec = new WaitForSeconds(60);
+		//	// throttle if entered update intervall is unreasonably low
+		//	_waitUpdateTime = _updateTimeInMilliSeconds < 500 ? new WaitForSeconds(0.5f) : new WaitForSeconds((float)_updateTimeInMilliSeconds / 1000.0f);
+
+		//	_currentLocation.IsLocationServiceEnabled = false;
+		//	_currentLocation.IsLocationServiceInitializing = true;
+
+		//	if (Application.platform == RuntimePlatform.Android)
+		//	{
+		//		getActivityContext();
+		//		getGpsInstance(false);
+		//		getSensorInstance();
+
+		//		if (_pollLocation == null)
+		//		{
+		//			_pollLocation = StartCoroutine(locationRoutine());
+		//		}
+		//	}
+		//}
+
+		void OnEnable()
 		{
-			// safe measures to not run when disabled or not selected as location provider
+			Debug.Log("Android Location Provider enabled");
+
 			if (!enabled) { return; }
 			if (!transform.gameObject.activeInHierarchy) { return; }
 
@@ -113,48 +145,22 @@
 			_currentLocation.IsLocationServiceEnabled = false;
 			_currentLocation.IsLocationServiceInitializing = true;
 
-			if (Application.platform == RuntimePlatform.Android)
-			{
-				getActivityContext();
-				getGpsInstance(true);
-				getSensorInstance();
+			_pollLocation = null;
 
-				if (_pollLocation == null)
-				{
-					_pollLocation = StartCoroutine(locationRoutine());
-				}
-			}
-		}
-
-		void OnEnable()
-		{
-			Debug.Log("Android Location Provider enabled");
-
-            if (!enabled) { return; }
-            if (!transform.gameObject.activeInHierarchy) { return; }
-
-
-            _wait1sec = new WaitForSeconds(1);
-            _wait5sec = new WaitForSeconds(5);
-            _wait60sec = new WaitForSeconds(60);
-            // throttle if entered update intervall is unreasonably low
-            _waitUpdateTime = _updateTimeInMilliSeconds < 500 ? new WaitForSeconds(0.5f) : new WaitForSeconds((float)_updateTimeInMilliSeconds / 1000.0f);
-
-            _currentLocation.IsLocationServiceEnabled = false;
-            _currentLocation.IsLocationServiceInitializing = true;
 
             if (Application.platform == RuntimePlatform.Android)
-            {
-                getActivityContext();
-                getGpsInstance(true);
+			{
+				getActivityContext();
+                getGpsInstance(false);
                 getSensorInstance();
 
                 if (_pollLocation == null)
-                {
+				{
+
                     _pollLocation = StartCoroutine(locationRoutine());
-                }
-            }
-        }
+				}
+			}
+		}
 
 
 		private void getActivityContext()
@@ -191,6 +197,7 @@
 					return;
 				}
 
+
 				_activityContext.Call("runOnUiThread", new AndroidJavaRunnable(() => { _gpsInstance.Call("showMessage", "starting location listeners"); }));
 
 				_gpsInstance.Call("startLocationListeners", _updateDistanceInMeters, _updateTimeInMilliSeconds);
@@ -226,9 +233,11 @@
 
 			while (true)
 			{
-				// couldn't get player activity, wait and retry
-				if (null == _activityContext)
+
+                // couldn't get player activity, wait and retry
+                if (null == _activityContext)
 				{
+					Debug.Log("couldn't get player activity");
 					SendLocation(_currentLocation);
 					yield return _wait60sec;
 					getActivityContext();
@@ -236,8 +245,9 @@
 				}
 				// couldn't get gps plugin instance, wait and retry
 				if (null == _gpsInstance)
-				{
-					SendLocation(_currentLocation);
+                {
+                    Debug.Log("couldn't get gps plugin instance");
+                    SendLocation(_currentLocation);
 					yield return _wait60sec;
 					getGpsInstance();
 					continue;
@@ -245,12 +255,20 @@
 
 				// update device orientation
 				if (null != _sensorInstance)
-				{
-					_currentLocation.DeviceOrientation = _sensorInstance.Call<float>("getOrientation");
+                {
+                    Debug.Log("update device orientation");
+                    _currentLocation.DeviceOrientation = _sensorInstance.Call<float>("getOrientation");
 				}
 
 				bool locationServiceAvailable = _gpsInstance.Call<bool>("getIsLocationServiceAvailable");
+
+				if (!locationServiceAvailable)
+                {
+                    Debug.Log("locationService unavailable");
+                }
+
 				_currentLocation.IsLocationServiceEnabled = locationServiceAvailable;
+
 
 				// app might have been started with location OFF but switched on after start
 				// check from time to time
@@ -262,7 +280,8 @@
 					_currentLocation.SatellitesInView = 0;
 					_currentLocation.SatellitesUsed = 0;
 
-					SendLocation(_currentLocation);
+
+                    SendLocation(_currentLocation);
 					_gpsInstance.Call("stopLocationListeners");
 					yield return _wait5sec;
 					_gpsInstance.Call("startLocationListeners", _updateDistanceInMeters, _updateTimeInMilliSeconds);
@@ -276,7 +295,8 @@
 
 				try
 				{
-					AndroidJavaObject locNetwork = _gpsInstance.Get<AndroidJavaObject>("lastKnownLocationNetwork");
+
+                    AndroidJavaObject locNetwork = _gpsInstance.Get<AndroidJavaObject>("lastKnownLocationNetwork");
 					AndroidJavaObject locGps = _gpsInstance.Get<AndroidJavaObject>("lastKnownLocationGps");
 
 					// easy cases: neither or either gps location or network location available
@@ -288,14 +308,17 @@
 					if (null != locGps && null != locNetwork) { populateWithBetterLocation(locGps, locNetwork); }
 
 
-					_currentLocation.TimestampDevice = UnixTimestampUtils.To(DateTime.UtcNow);
+
+                    _currentLocation.TimestampDevice = UnixTimestampUtils.To(DateTime.UtcNow);
 					SendLocation(_currentLocation);
 				}
 				catch (Exception ex)
 				{
 					Debug.LogErrorFormat("GPS plugin error: " + ex.ToString());
 				}
-				yield return _waitUpdateTime;
+
+
+                yield return _waitUpdateTime;
 			}
 		}
 

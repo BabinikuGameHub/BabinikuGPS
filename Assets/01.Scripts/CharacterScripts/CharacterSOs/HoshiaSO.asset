@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
   m_Name: HoshiaSO
   m_EditorClassIdentifier: 
-  Name: "\uD638\uC2DC\uC544"
+  uniqueID: a59a7687-da5e-4116-afea-b16cb7fdefde
+  CharacterName: "\uD638\uC2DC"
   CharacterSprite: {fileID: -945631330, guid: f048f40be615b484fb857b2acd0eae85, type: 3}
   CharacterAnimation: {fileID: 0}

@@ -44,9 +44,16 @@ public class GachaManager : MonoBehaviour
         return AllCharacterList;
     }
 
+    public CharacterSO GetSOByName(string name)
+    {
+        return AllCharacterList.FirstOrDefault(x => x.CharacterName.Equals(name));
+    }
+
     public CharacterSO GetSObyID(string ID)
     {
-        return AllCharacterList.First(x => x.uniqueID.Equals(ID));
+        CharacterSO result = AllCharacterList?.FirstOrDefault(x => x.uniqueID.Equals(ID));
+
+        return result;
 
     }
 }

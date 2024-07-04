@@ -17,6 +17,7 @@ namespace Mapbox.Examples
     public class POICharacterData
     {
         public string SOID;
+        public string Name;
         public string locationString;
         [Serialize] public DateTime TimeStamp;
 
@@ -161,6 +162,8 @@ namespace Mapbox.Examples
             string currLocString = Conversions.LatLonToString(currentLocation);
             _currentCoordinate.text = currLocString;
 
+            _currentCoordinate.text = UnixTimestampUtils.From(LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.TimestampDevice).ToLocalTime().ToString();
+
         }
 
 
@@ -200,6 +203,7 @@ namespace Mapbox.Examples
             POICharacterData poidata = new POICharacterData
             {
                 SOID = characterSO.uniqueID,
+                Name = characterSO.CharacterName,
                 locationString = currLocString,
                 TimeStamp = createdTime,
             };

@@ -16,7 +16,17 @@ public class CharPrefabScript : MonoBehaviour
     {
         _poiData = POIData;
 
-        _spriteRenderer.sprite = GachaManager.Instance.GetSObyID(POIData.SOID).CharacterSprite;
+        CharacterSO characterSO = GachaManager.Instance.GetSOByName(POIData.Name);
+
+        if (characterSO == null)
+        {
+            return;
+        }
+        else
+        {
+            _spriteRenderer.sprite = characterSO.CharacterSprite;
+        }
+
     }
 
 }

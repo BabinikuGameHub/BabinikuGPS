@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
   m_Name: DamingSO
   m_EditorClassIdentifier: 
-  Name: "\uB2E4\uBC0D"
+  uniqueID: 1810e31d-c0b0-45e1-a581-7b9e5ebc77a6
+  CharacterName: "\uB2E4"
   CharacterSprite: {fileID: 422789109, guid: 4b3001ad65044bd44b3d5061052ba4cb, type: 3}
   CharacterAnimation: {fileID: 0}

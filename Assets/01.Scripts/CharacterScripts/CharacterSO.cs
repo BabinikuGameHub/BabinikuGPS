@@ -8,7 +8,7 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     public string uniqueID;
-    public string Name;
+    public string CharacterName;
     public Sprite CharacterSprite;
     public Animation CharacterAnimation;
 

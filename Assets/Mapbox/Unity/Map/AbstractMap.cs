@@ -16,18 +16,21 @@ namespace Mapbox.Unity.Map
 	using Mapbox.Unity.MeshGeneration.Factories;
 	using Mapbox.Unity.MeshGeneration.Data;
 	using System.Globalization;
+    using Mapbox.Examples;
 
-	/// <summary>
-	/// Abstract map.
-	/// This is the main monobehavior which controls the map. It controls the visualization of map data.
-	/// Abstract map encapsulates the image, terrain and vector sources and provides a centralized interface to control the visualization of the map.
-	/// </summary>
-	[ExecuteInEditMode]
+    /// <summary>
+    /// Abstract map.
+    /// This is the main monobehavior which controls the map. It controls the visualization of map data.
+    /// Abstract map encapsulates the image, terrain and vector sources and provides a centralized interface to control the visualization of the map.
+    /// </summary>
+    [ExecuteInEditMode]
 	public class AbstractMap : MonoBehaviour, IMap
 	{
-		#region Private Fields
 
-		[SerializeField] private MapOptions _options = new MapOptions();
+        #region Private Fields
+
+
+        [SerializeField] private MapOptions _options = new MapOptions();
 		[SerializeField] private bool _initializeOnStart = true;
 		[SerializeField] protected ImageryLayer _imagery = new ImageryLayer();
 		[SerializeField] protected TerrainLayer _terrain = new TerrainLayer();
@@ -53,6 +56,8 @@ namespace Mapbox.Unity.Map
 		#endregion
 
 		#region Properties
+
+
 
 		public bool IsEditorPreviewEnabled
 		{
@@ -395,8 +400,17 @@ namespace Mapbox.Unity.Map
 			if (Math.Abs(differenceInZoom) > Constants.EpsilonFloatingPoint || isAtInitialZoom)
 			{
 				_mapScaleFactor = Vector3.one * Mathf.Pow(2, differenceInZoom);
-				Root.localScale = _mapScaleFactor;
-			}
+
+                //Root.localScale = _mapScaleFactor;
+
+
+
+                Vector3 previousPosition = QuadTreeCameraMovement.Instance._referenceCamera.transform.position;
+
+                float changeFactor = 100 * Mathf.Pow(2, -differenceInZoom);
+
+                QuadTreeCameraMovement.Instance._referenceCamera.transform.position = new Vector3(previousPosition.x, changeFactor, previousPosition.z);
+            }
 
 			//Update Tile extent.
 			if (TileProvider != null)

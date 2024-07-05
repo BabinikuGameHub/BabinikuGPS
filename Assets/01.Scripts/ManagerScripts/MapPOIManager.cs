@@ -83,15 +83,30 @@ namespace Mapbox.Examples
             }
         }
 
+
+        const int INITIALMAXPIN = 3;
+
+        public UnityEvent OnPinUpdate;
+
         [Header("Debug Related")]
         public bool IsDebug = false;
         [SerializeField] public TextMeshProUGUI _currentCoordinate;
 
-        public UnityEvent OnPinUpdate;
 
         private void Awake()
         {
             Instance = this;
+
+        }
+
+        private void OnEnable()
+        {
+            if (MaxPin == 0)
+            {
+                MaxPin = 3;
+                RemainingPin = 3;
+                OnPinUpdate.Invoke();
+            }
         }
 
         void Start()
@@ -147,7 +162,7 @@ namespace Mapbox.Examples
                 var spawnedObject = _spawnedObjects[i];
                 var location = _locations[i];
                 spawnedObject.transform.position = _map.GeoToWorldPosition(location, true);
-                spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                //spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
             }
 
             if (_panSequence)

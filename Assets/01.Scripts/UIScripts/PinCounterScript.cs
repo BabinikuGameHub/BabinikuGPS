@@ -35,6 +35,9 @@ public class PinCounterScript : MonoBehaviour
         _remainingPins = MapPOIManager.Instance.RemainingPin;
         _maxPins = MapPOIManager.Instance.MaxPin;
 
+        if (_maxPins < 3)
+            return;
+
         _pinTextScript.text = $"{_remainingPins}/{_maxPins}";
     }
 }

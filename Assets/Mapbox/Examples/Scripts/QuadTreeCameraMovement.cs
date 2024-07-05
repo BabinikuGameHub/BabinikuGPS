@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using System;
 using System.Collections;
 using Mapbox.Unity.Location;
+using UnityEngine.Events;
 
 namespace Mapbox.Examples
 {
@@ -31,6 +32,24 @@ namespace Mapbox.Examples
 
         [SerializeField]
 		bool _useDegreeMethod;
+
+		private float _zoom;
+
+		public float Zoom
+		{
+			get
+			{
+				return _zoom;
+			}
+			set
+			{
+				_zoom = value;
+                OnZoomChange.Invoke();
+
+            }
+		}
+
+		public UnityEvent OnZoomChange;
 
 		private bool _isFollowingPlayer;
 		private Vector3 _origin;
@@ -171,11 +190,19 @@ namespace Mapbox.Examples
 			if (zoomFactor == 0)
 				return;
 
-			var zoom = Mathf.Max(0.0f, Mathf.Min(_mapManager.Zoom + zoomFactor * _zoomSpeed, 21.0f));
-			if (Math.Abs(zoom - _mapManager.Zoom) > 0.0f)
+			Zoom = Mathf.Max(0.0f, Mathf.Min(_mapManager.Zoom + zoomFactor * _zoomSpeed, 21.0f));
+
+			float differenceInZoom = Zoom - _mapManager.Zoom;
+
+
+            if (Math.Abs(differenceInZoom) > 0.0f)
 			{
-				_mapManager.UpdateMap(_mapManager.CenterLatitudeLongitude, zoom);
+				_mapManager.UpdateMap(_mapManager.CenterLatitudeLongitude, Zoom);
+
+
 			}
+
+            OnZoomChange.Invoke();
 		}
 
 		void PanMapUsingKeyBoard(float xMove, float zMove)

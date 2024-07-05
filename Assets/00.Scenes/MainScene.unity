@@ -3065,7 +3065,7 @@ MonoBehaviour:
   OnPanelChange:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1164787172}
         m_TargetAssemblyTypeName: POIPanelScript, Assembly-CSharp
         m_MethodName: TurnOffPanel
         m_Mode: 1
@@ -5039,7 +5039,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3/3
+  m_text: XXX
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af777d9a20fcabf4ea43e850dc752243, type: 2}
   m_sharedMaterial: {fileID: -5731410435781662275, guid: af777d9a20fcabf4ea43e850dc752243, type: 2}
@@ -5883,7 +5883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1778689708
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6866,7 +6866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _previewOptions.isPreviewEnabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _options.extentOptions.extentType
@@ -6919,6 +6919,10 @@ PrefabInstance:
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _vectorData._layerProperty.sourceOptions.isActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: _imagery._layerProperty.rasterOptions.useCompression
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _imagery._layerProperty.sourceOptions.layerSource.Id
@@ -7017,6 +7021,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5164186281721238395, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164186281721238395, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164186281721238395, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164186281721238395, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
@@ -7078,7 +7094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6423111845642633936, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 90
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6423111845642633936, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7086,11 +7102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7127710975675634778, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: orthographic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7127710975675634778, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: field of view
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127710975675634778, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: far clip plane
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 7127710975675634778, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: orthographic size

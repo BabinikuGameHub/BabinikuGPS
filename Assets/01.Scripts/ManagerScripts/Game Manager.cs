@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     private PlayerData _playerData;
     private string saveFilePath;
 
-    private bool _hasReset = false;
     private DateTime _lastResetTime;
 
     public DateTime LastResetTime
@@ -344,8 +343,19 @@ public class PlayerData
         GameManager.Instance.SetCharacters(currentCharacters);
         GameManager.Instance.SetLastResetTime(ResetTime);
         MapPOIManager.Instance.SetLocations(poiData);
-        MapPOIManager.Instance.RemainingPin = RemainingPins;
-        MapPOIManager.Instance.MaxPin = MaxPins;
+
+        if (MaxPins < 3)
+        {
+            MapPOIManager.Instance.MaxPin = 3;
+            MapPOIManager.Instance.RemainingPin = 3;
+
+        }
+        else
+        {
+            MapPOIManager.Instance.RemainingPin = RemainingPins;
+            MapPOIManager.Instance.MaxPin = MaxPins;
+        }
+
     }
 
 }

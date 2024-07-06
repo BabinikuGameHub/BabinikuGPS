@@ -244,8 +244,12 @@ namespace Mapbox.Examples
         {
 			_isFollowingPlayer = true;
 
+			Zoom = 17f;
+
 			if(_currentLocation.Provider != null)
-				_mapManager.UpdateMap(_currentLocation.LatitudeLongitude);	
+            {
+                _mapManager.UpdateMap(_currentLocation.LatitudeLongitude, Zoom);
+            }
 
         }
 
@@ -310,7 +314,10 @@ namespace Mapbox.Examples
 					{
 						if (null != _mapManager)
 						{
-							float factor = _panSpeed * Conversions.GetTileScaleInMeters((float)0, _mapManager.AbsoluteZoom) / _mapManager.UnityTileSize;
+							//float factor = _panSpeed * Conversions.GetTileScaleInMeters((float)0, _mapManager.AbsoluteZoom) / _mapManager.UnityTileSize;
+
+							float factor = _panSpeed;
+
 							var latlongDelta = Conversions.MetersToLatLon(new Vector2d(offset.x * factor, offset.z * factor));
 							var newLatLong = _mapManager.CenterLatitudeLongitude + latlongDelta;
 

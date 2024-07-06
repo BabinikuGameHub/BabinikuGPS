@@ -4750,7 +4750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1470296164
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6886,7 +6886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _options.scalingOptions.unityTileSize
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _vectorData._layerProperty._sourceType
@@ -6898,7 +6898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _options.placementOptions.snapMapToZero
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _terrain._layerProperty.elevationLayerType
@@ -6906,6 +6906,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: _vectorData._layerProperty.useOptimizedStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: _imagery._layerProperty.rasterOptions.useMipMap
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3033966399946380902, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
@@ -7012,6 +7016,10 @@ PrefabInstance:
       propertyPath: _vectorData._layerProperty.tileJsonData.LayerDisplayNames.Array.data[21]
       value: waterway_label
       objectReference: {fileID: 0}
+    - target: {fileID: 3429761861558794932, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4126670371296015614, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -7030,7 +7038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5164186281721238395, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5164186281721238395, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7087,6 +7095,10 @@ PrefabInstance:
     - target: {fileID: 5834575720634733478, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133436170433749479, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
+      propertyPath: _updateInterval
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6423111845642633936, guid: a5f568dc80339b24e8c90294bd5342d1, type: 3}
       propertyPath: m_LocalPosition.x

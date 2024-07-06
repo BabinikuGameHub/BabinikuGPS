@@ -22,7 +22,7 @@ public class BottomMenuScript : MonoBehaviour
 
     private void Start()
     {
-        OnMapButtonClick();
+        OnCafeButtonClick();
 
         //GameManager.Instance.SwitchToMainCamera();
         //_cafeField.SetActive(true);

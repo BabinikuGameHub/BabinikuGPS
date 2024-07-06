@@ -16,6 +16,7 @@ public class CharPrefabScript : MonoBehaviour
         QuadTreeCameraMovement.Instance.OnZoomChange.AddListener(AdjustCharacterSize);
     }
 
+
     public void InitializeFromPOIData(POICharacterData POIData)
     {
         _poiData = POIData;
@@ -35,9 +36,9 @@ public class CharPrefabScript : MonoBehaviour
 
     public void AdjustCharacterSize()
     {
-        float newScaleValue = QuadTreeCameraMovement.Instance.Zoom / 17;
+        float newScaleValue = 1 + (((17 / QuadTreeCameraMovement.Instance.Zoom) - 1) * 10f);
 
-        transform.localScale = new Vector3(newScaleValue, newScaleValue, 1);
+        transform.localScale = new Vector3(newScaleValue, 1, newScaleValue);
     }
 
 }

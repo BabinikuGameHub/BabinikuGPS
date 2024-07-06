@@ -69,8 +69,6 @@
 		{
 			try
 			{
-
-                Debug.Log("shutdown");
                 lock (_lock)
 				{
 					if (null != _gpsInstance)

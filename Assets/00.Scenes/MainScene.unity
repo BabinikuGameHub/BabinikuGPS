@@ -2831,6 +2831,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &799389684
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 373937214553353672, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_Name
+      value: CafeField
+      objectReference: {fileID: 0}
+    - target: {fileID: 373937214553353672, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457272898508163466, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+--- !u!1 &799389685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 373937214553353672, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+  m_PrefabInstance: {fileID: 799389684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &811916717
 GameObject:
   m_ObjectHideFlags: 0
@@ -3053,7 +3119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a68e904a92dbc44ad94e950cff542e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cafeField: {fileID: 2034386075}
+  _cafeField: {fileID: 799389685}
   _mapField: {fileID: 2140584826}
   _gachaField: {fileID: 766946811}
   _cafeUI: {fileID: 1512949902}
@@ -4506,7 +4572,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.6
+  m_fontSize: 71.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6240,7 +6306,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.6
+  m_fontSize: 69.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7773,3 +7839,4 @@ SceneRoots:
   - {fileID: 2034386076}
   - {fileID: 2041266480}
   - {fileID: 766946812}
+  - {fileID: 799389684}

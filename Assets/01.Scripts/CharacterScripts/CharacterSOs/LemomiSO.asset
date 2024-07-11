@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LemomiSO
   m_EditorClassIdentifier: 
   uniqueID: 0178bac6-59d3-4a05-8b03-7d5cc46dd563
-  CharacterName: "\uB808\uBAA8"
+  CharacterName: "\uB808\uBAA8\uBBF8"
+  CharacterDescription: "\uB124\uC624 \uD64B\uCE74\uC774\uB3C4 \uB2CC\uC790"
   CharacterSprite: {fileID: 1310168736, guid: d298e949c20a6714f969f1ee3ff7c938, type: 3}
-  CharacterAnimation: {fileID: 0}
+  CharacterPrefab: {fileID: 9071470947473309158, guid: be7a8146fa2275a41886edf2440f20f6, type: 3}

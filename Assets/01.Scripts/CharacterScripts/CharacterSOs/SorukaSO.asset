@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 1b7e57af-f7c1-4235-bde9-9b71c62de87f
   CharacterName: "\uC18C\uB8E8\uCE74"
+  CharacterDescription: "\uD5DD\uAC00\uB9AC \uC5D8\uD504"
   CharacterSprite: {fileID: -1553928576, guid: a2dbd8f17948d1740b7c8d0f6a5ef022, type: 3}
-  CharacterAnimation: {fileID: 0}
+  CharacterPrefab: {fileID: 8645734303232962775, guid: 6864801b3d5fcb243bbacfba9cab6bc5, type: 3}

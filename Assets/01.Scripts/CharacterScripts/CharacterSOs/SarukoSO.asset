@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SarukoSO
   m_EditorClassIdentifier: 
   uniqueID: 90cbc94a-2eae-40c3-be92-d4615117063e
-  CharacterName: "\uC0AC\uB8E8"
+  CharacterName: "\uC0AC\uB8E8\uCF54"
+  CharacterDescription: "\uC628\uCC9C \uC6D0\uC22D\uC774"
   CharacterSprite: {fileID: -148233826, guid: f43c5b91957470540909bdb617618337, type: 3}
-  CharacterAnimation: {fileID: 0}
+  CharacterPrefab: {fileID: 7018752225364037724, guid: d625c495ef696cf42bfbbb3ced9de24e, type: 3}

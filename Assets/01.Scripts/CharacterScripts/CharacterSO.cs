@@ -9,8 +9,9 @@ public class CharacterSO : ScriptableObject
 {
     public string uniqueID;
     public string CharacterName;
+    public string CharacterDescription = "설명 채워 넣어야됨";
     public Sprite CharacterSprite;
-    public Animation CharacterAnimation;
+    public GameObject CharacterPrefab;
 
 
     private void OnValidate()

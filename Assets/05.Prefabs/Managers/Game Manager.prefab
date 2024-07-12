@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7904389646789037860}
   - component: {fileID: 8593169693630460110}
   - component: {fileID: 707204840322949707}
+  - component: {fileID: 8678998990394143895}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -50,9 +51,11 @@ MonoBehaviour:
   MainCamera: {fileID: 0}
   MapCamera: {fileID: 0}
   _charPrefab: {fileID: 9174831814700796352, guid: b353ef6114d1f754eb92a32ddf800a30, type: 3}
+  _popupPrefab: {fileID: 3301180555042638693, guid: 5ef6be2165ff1844983e5f867dc5318d, type: 3}
   CafePanel: {fileID: 0}
   MapPanel: {fileID: 0}
   GachaPanel: {fileID: 0}
+  CommonPanel: {fileID: 0}
   _charHolder: {fileID: 7800782608653372447}
   _currentScore: 25000
   ScoreUpdate:
@@ -96,8 +99,26 @@ MonoBehaviour:
   _spawnScale: 1
   _poiHolderObject: {fileID: 0}
   _markerPrefab: {fileID: 9174831814700796352, guid: b353ef6114d1f754eb92a32ddf800a30, type: 3}
-  _scorePopupScript: {fileID: 0}
+  _maxPin: 3
+  OnPinUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   IsDebug: 1
+  _currentCoordinate: {fileID: 0}
+--- !u!114 &8678998990394143895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282816337732306947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f040ca554ba79fe4e970f4afcf81676b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cafeCamera: {fileID: 0}
+  charactersParent: {fileID: 0}
 --- !u!1 &7800782608653372447
 GameObject:
   m_ObjectHideFlags: 0

@@ -241,10 +241,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1221065002}
     - target: {fileID: 707204840322949707, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
-      propertyPath: _maxPin
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 707204840322949707, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
       propertyPath: _mapCamera
       value: 
       objectReference: {fileID: 2041266481}
@@ -252,10 +248,6 @@ PrefabInstance:
       propertyPath: _poiHolderObject
       value: 
       objectReference: {fileID: 2041266482}
-    - target: {fileID: 707204840322949707, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
-      propertyPath: _scorePopupScript
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 707204840322949707, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
       propertyPath: _currentCoordinate
       value: 
@@ -328,14 +320,14 @@ PrefabInstance:
       propertyPath: CommonPanel
       value: 
       objectReference: {fileID: 2085052091}
-    - target: {fileID: 7904389646789037860, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
-      propertyPath: _popupPrefab
+    - target: {fileID: 8678998990394143895, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
+      propertyPath: cafeCamera
       value: 
-      objectReference: {fileID: 3301180555042638693, guid: 5ef6be2165ff1844983e5f867dc5318d, type: 3}
-    - target: {fileID: 7904389646789037860, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
-      propertyPath: _scorePopupScript
+      objectReference: {fileID: 809445059}
+    - target: {fileID: 8678998990394143895, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
+      propertyPath: charactersParent
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1456188861}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2152,6 +2144,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd7c905735b6014382a2c27432dab6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &555536231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8678998990394143895, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
+  m_PrefabInstance: {fileID: 54779258}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f040ca554ba79fe4e970f4afcf81676b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &558342395
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,7 +2266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 60.471134}
+  m_AnchoredPosition: {x: 0, y: 60.47119}
   m_SizeDelta: {x: 0, y: -120.9424}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &558460085
@@ -2424,7 +2427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 25, y: 50.00006}
+  m_AnchoredPosition: {x: 25, y: 50.000122}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &579727671
@@ -3429,6 +3432,42 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3529090675556405587, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870353282019488343, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342961667045560657, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5050598704428468819, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514102889150402265, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910244014024918375, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100490288484877000, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445834522920377541, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8716069130796719871, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3437,6 +3476,11 @@ PrefabInstance:
 --- !u!1 &799389685 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 373937214553353672, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+  m_PrefabInstance: {fileID: 799389684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &809445059 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2897111144933297580, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
   m_PrefabInstance: {fileID: 799389684}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &811916717
@@ -3745,6 +3789,27 @@ MonoBehaviour:
       - m_Target: {fileID: 1462709788}
         m_TargetAssemblyTypeName: DictPanelScript, Assembly-CSharp
         m_MethodName: TurnOffList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMapPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGachaPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCafePanelEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 555536231}
+        m_TargetAssemblyTypeName: CafeFieldManager, Assembly-CSharp
+        m_MethodName: InitializeWithSaveData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5562,6 +5627,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421676756}
   m_CullTransparentMesh: 1
+--- !u!4 &1456188861 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7083397474317652359, guid: 07a49afe7212fa44ba6ba0c340c18db4, type: 3}
+  m_PrefabInstance: {fileID: 799389684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1462339966
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,23 +20,21 @@ public class BottomMenuScript : MonoBehaviour
 
     public UnityEvent OnPanelChange;
 
+    public UnityEvent OnMapPanelEnter;
+    public UnityEvent OnGachaPanelEnter;
+    public UnityEvent OnCafePanelEnter;
+
     private void Start()
     {
         OnGachaButtonClick();
 
-        //GameManager.Instance.SwitchToMainCamera();
-        //_cafeField.SetActive(true);
-        //_cafeUI.SetActive(true);
-        //_mapField.SetActive(false);
-        //_mapUI.SetActive(false);
-        //_gachaField.SetActive(false);
-        //_gachaUI.SetActive(false);
     }
 
     //가챠화면으로 전환
     public void OnGachaButtonClick()
     {
         OnPanelChange?.Invoke();
+        OnGachaPanelEnter?.Invoke();
 
         GameManager.Instance.SwitchToMainCamera();
         _cafeField.SetActive(false);
@@ -56,6 +54,7 @@ public class BottomMenuScript : MonoBehaviour
     public void OnMapButtonClick()
     {
         OnPanelChange?.Invoke();
+        OnMapPanelEnter?.Invoke();
 
         GameManager.Instance.SwitchToMapCamera();
         _cafeField.SetActive(false);
@@ -74,8 +73,8 @@ public class BottomMenuScript : MonoBehaviour
     //카페 화면으로 전환
     public void OnCafeButtonClick()
     {
-
         OnPanelChange?.Invoke();
+        OnCafePanelEnter?.Invoke();
 
         GameManager.Instance.SwitchToMainCamera();
         _cafeField.SetActive(true);

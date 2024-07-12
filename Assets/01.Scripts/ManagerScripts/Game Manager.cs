@@ -1,4 +1,4 @@
-﻿using Mapbox.Examples;
+using Mapbox.Examples;
 using Mapbox.Json;
 using System;
 using System.Collections;
@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, "playerData.json");
         LoadProgress();
 
+        CafeFieldManager.Instance.InitializeWithSaveData();
 
         InvokeRepeating("CheckResetTime", 0f, 60f);
     }

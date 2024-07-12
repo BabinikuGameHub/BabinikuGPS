@@ -235,7 +235,7 @@ MonoBehaviour:
   m_AtlasWidth: 512
   m_AtlasHeight: 512
   m_AtlasPadding: 9
-  m_AtlasRenderMode: 4169
+  m_AtlasRenderMode: 16422
   m_glyphInfoList: []
   m_KerningTable:
     kerningPairs: []
@@ -258,7 +258,7 @@ MonoBehaviour:
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0
-    renderMode: 4169
+    renderMode: 16422
     includeFontFeatures: 1
   m_FontWeightTable:
   - regularTypeface: {fileID: 0}

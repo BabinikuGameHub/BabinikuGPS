@@ -31,6 +31,11 @@ public class CharacterRandomMover : MonoBehaviour
         StartCoroutine(MoveRandomCoroutine());
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     void RandomWarp()
     {
         Vector3 randomPosition = GetRandomPositionWithinNavMesh();

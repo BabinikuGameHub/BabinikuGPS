@@ -24,6 +24,8 @@ public class BottomMenuScript : MonoBehaviour
     public UnityEvent OnGachaPanelEnter;
     public UnityEvent OnCafePanelEnter;
 
+    private CurrentPanel _currentPanel;
+
     private void Start()
     {
         OnGachaButtonClick();
@@ -33,6 +35,9 @@ public class BottomMenuScript : MonoBehaviour
     //가챠화면으로 전환
     public void OnGachaButtonClick()
     {
+        if (_currentPanel == CurrentPanel.GACHA)
+            return;
+
         OnPanelChange?.Invoke();
         OnGachaPanelEnter?.Invoke();
 
@@ -48,11 +53,16 @@ public class BottomMenuScript : MonoBehaviour
         _mapButton.SetActive(false);
         _cafeButton.SetActive(false);
 
+        _currentPanel = CurrentPanel.GACHA;
+
     }
 
     //지도 화면으로 전환
     public void OnMapButtonClick()
     {
+        if (_currentPanel == CurrentPanel.MAP)
+            return;
+
         OnPanelChange?.Invoke();
         OnMapPanelEnter?.Invoke();
 
@@ -68,15 +78,19 @@ public class BottomMenuScript : MonoBehaviour
         _mapButton.SetActive(true);
         _cafeButton.SetActive(false);
 
+        _currentPanel = CurrentPanel.MAP;
     }
 
     //카페 화면으로 전환
     public void OnCafeButtonClick()
     {
+        if (_currentPanel == CurrentPanel.CAFE)
+            return;
+
         OnPanelChange?.Invoke();
         OnCafePanelEnter?.Invoke();
 
-        GameManager.Instance.SwitchToMainCamera();
+        GameManager.Instance.SwitchToCafeCamera();
         _cafeField.SetActive(true);
         _cafeUI.SetActive(true);
         _mapField.SetActive(false);
@@ -88,5 +102,13 @@ public class BottomMenuScript : MonoBehaviour
         _mapButton.SetActive(false);
         _cafeButton.SetActive(true);
 
+        _currentPanel = CurrentPanel.CAFE;
     }    
+}
+
+public enum CurrentPanel
+{
+    MAP,
+    GACHA,
+    CAFE,
 }

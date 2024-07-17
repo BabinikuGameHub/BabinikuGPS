@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Mapbox.Utils;
 using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
@@ -26,6 +26,8 @@ namespace Mapbox.Examples
     public class MapPOIManager : MonoBehaviour
     {
         public static MapPOIManager Instance;
+
+        public bool isDebug;
 
         [SerializeField]
         AbstractMap _map;
@@ -250,7 +252,7 @@ namespace Mapbox.Examples
                 return;
             }
 
-            if (!GameManager.Instance.CalculateResolve())
+            if (!GameManager.Instance.CalculateResolve() && isDebug == false)
             {
                 GameManager.Instance.PopupMessage("이미 오늘 하루치 결산을 했습니다!");
                 return;
@@ -286,6 +288,7 @@ namespace Mapbox.Examples
             else
             {
                 _panSequence = false;
+                _map.UpdateMap(_map.Zoom * 0.99f);
                 StartCoroutine(ScoreUI());
             }
         }

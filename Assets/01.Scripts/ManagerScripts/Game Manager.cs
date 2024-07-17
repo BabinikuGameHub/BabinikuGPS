@@ -13,11 +13,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("카메라")]
     public Camera MainCamera;
     public Camera MapCamera;
+    public Camera CafeCamera;
+
+    [Header("Prefab")]
     [SerializeField] GameObject _charPrefab;
     [SerializeField] GameObject _popupPrefab;
 
+    [Header("UI Panel")]
     //UI canvas panels
     public GameObject CafePanel;
     public GameObject MapPanel;
@@ -172,12 +177,21 @@ public class GameManager : MonoBehaviour
     {
         MainCamera.tag = "MainCamera";
         MapCamera.tag = "Untagged";
+        CafeCamera.tag = "Untagged";
     }
 
     public void SwitchToMapCamera()
     {
         MainCamera.tag = "Untagged";
         MapCamera.tag = "MainCamera";
+        CafeCamera.tag = "Untagged";
+    }
+
+    public void SwitchToCafeCamera()
+    {
+        MainCamera.tag = "Untagged";
+        MapCamera.tag = "Untagged";
+        CafeCamera.tag = "MainCamera";
     }
 
 

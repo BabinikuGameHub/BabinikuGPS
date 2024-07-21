@@ -17,6 +17,7 @@ public class CharacterRandomMover : MonoBehaviour
 
     private NavMeshSurface navMeshSurface; // NavMeshSurface 참조
     private NavMeshAgent agent; // NavMeshAgent를 저장할 변수
+    private bool isHolding = false;
     private void Awake()
     {
         navMeshSurface = FindObjectOfType<NavMeshSurface>(true);
@@ -67,6 +68,11 @@ public class CharacterRandomMover : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitUntil(() => !isHolding);
+
+            float waitTime = Random.Range(minMoveTime, maxMoveTime);
+            yield return new WaitForSeconds(waitTime);
+
             float moveDuration = Random.Range(minMoveDuration, maxMoveDuration);
             Vector3 destination = GetRandomDestination();
             agent.SetDestination(destination);
@@ -75,7 +81,7 @@ public class CharacterRandomMover : MonoBehaviour
 
             float startTime = Time.time;
             // 목적지에 도착할 때까지 기다림
-            while (Time.time - startTime < moveDuration && agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+            while ((Time.time - startTime < moveDuration && agent.pathPending || agent.remainingDistance > agent.stoppingDistance) && !isHolding)
             {
                 yield return null;
             }
@@ -83,11 +89,18 @@ public class CharacterRandomMover : MonoBehaviour
             agent.ResetPath();
             animator.SetBool("isMoving", false);
 
-            float waitTime = Random.Range(minMoveTime, maxMoveTime);
-            yield return new WaitForSeconds(waitTime);
         }
     }
-
+    public void Hold()
+    {
+        animator.SetBool("isHolding", true);
+        isHolding = true;
+    }
+    public void Resume()
+    {
+        animator.SetBool("isHolding", false);
+        isHolding = false;
+    }
     Vector3 GetRandomDestination()
     {
         Vector3 randomDirection = Random.insideUnitSphere * moveRadius;

@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 0}
   MapCamera: {fileID: 0}
+  CafeCamera: {fileID: 0}
   _charPrefab: {fileID: 9174831814700796352, guid: b353ef6114d1f754eb92a32ddf800a30, type: 3}
   _popupPrefab: {fileID: 3301180555042638693, guid: 5ef6be2165ff1844983e5f867dc5318d, type: 3}
   CafePanel: {fileID: 0}
@@ -93,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d8438b46295fd49800566b9e7c0f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 0
   _map: {fileID: 0}
   _mapCamera: {fileID: 0}
   _locations: []
@@ -119,6 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cafeCamera: {fileID: 0}
   charactersParent: {fileID: 0}
+  dragLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  dragSpeed: 1
 --- !u!1 &7800782608653372447
 GameObject:
   m_ObjectHideFlags: 0

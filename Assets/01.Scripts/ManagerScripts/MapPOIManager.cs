@@ -10,6 +10,7 @@ using System;
 using global::Unity.VisualScripting;
 using TMPro;
 using UnityEngine.Events;
+using static UnityEngine.GUILayout;
 
 namespace Mapbox.Examples
 {
@@ -19,6 +20,7 @@ namespace Mapbox.Examples
         public string SOID;
         public string Name;
         public string locationString;
+        public bool isDebug = false;
         [Serialize] public DateTime TimeStamp;
 
     }
@@ -28,6 +30,28 @@ namespace Mapbox.Examples
         public static MapPOIManager Instance;
 
         public bool isDebug;
+        
+        private bool _poiDebug;
+        public bool PoiDebug
+        {
+            get
+            {
+                return _poiDebug;
+            }
+            set
+            {
+                _poiDebug = value;
+
+                if(_poiDebug == false)
+                {
+                    _debugText.SetActive(false);
+                }
+                else
+                {
+                    _debugText.SetActive(true);
+                }
+            }
+        }
 
         [SerializeField]
         AbstractMap _map;
@@ -53,7 +77,11 @@ namespace Mapbox.Examples
 
         bool _panSequence;
         float _baseZoom;
+
+        //Score Calculation Variables
         double _areaScore;
+        double _areaPlus = 0;
+        double _multiplier = 1;
 
         private int _remainingPin;
 
@@ -93,6 +121,8 @@ namespace Mapbox.Examples
         [Header("Debug Related")]
         public bool IsDebug = false;
         [SerializeField] public TextMeshProUGUI _currentCoordinate;
+        [SerializeField] private GameObject _mapCharacterObject;
+        [SerializeField] private GameObject _debugText;
 
 
         private void Awake()
@@ -131,7 +161,7 @@ namespace Mapbox.Examples
 
         public List<POICharacterData> GetPOIDatas()
         {
-            return _locationDatas;
+            return _locationDatas.Where(x => !x.isDebug).ToList();
         }
 
 
@@ -242,7 +272,89 @@ namespace Mapbox.Examples
         }
 
 
+        public void CreatePOIDebug(CharacterSO characterSO)
+        {
+            if (_remainingPin <= 0)
+            {
+                GameManager.Instance.PopupMessage("이미 사용할 수 있는 PIN을 전부 소모했습니다");
+                return;
+            }
+
+            //GameManager.Instance.UseCharacter(characterSO);
+
+            Vector2d currentPlayerLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+            Vector3 playerLocationLocal = _map.GeoToWorldPosition(currentPlayerLocation);
+
+            Vector3 DebugPosition = new Vector3(playerLocationLocal.x -_mapCharacterObject.transform.position.x, 0, playerLocationLocal.z - _mapCharacterObject.transform.position.z);
+
+            Vector2d currentLocation = _map.WorldToGeoPosition(DebugPosition);
+
+
+            GameObject newPOI = Instantiate(_markerPrefab, _poiHolderObject.transform);
+            CharPrefabScript charPrefabScript = newPOI.GetComponent<CharPrefabScript>();
+
+            string currLocString = Conversions.LatLonToString(currentLocation);
+            DateTime createdTime = DateTime.Now;
+
+
+            POICharacterData poidata = new POICharacterData
+            {
+                SOID = characterSO.uniqueID,
+                Name = characterSO.CharacterName,
+                locationString = currLocString,
+                TimeStamp = createdTime,
+                isDebug = true,
+            };
+
+            charPrefabScript.InitializeFromPOIData(poidata);
+
+            newPOI.transform.position = _map.GeoToWorldPosition(currentLocation, true);
+            newPOI.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+
+            _locationDatas.Add(poidata);
+
+            _spawnedObjects.Add(newPOI);
+            _locations.Add(currentLocation);
+
+            //_remainingPin--;
+
+            //GameManager.Instance.SaveProgress();
+        }
+
+
         public void CalculateArea()
+        {
+            Vector2d centerPosition = GetCenterPosition(_locations);
+
+            QuadTreeCameraMovement.Instance.SetCameraPosition(new Vector3(0, 0, 0));
+
+            _map.UpdateMap(centerPosition);
+            _panSequence = true;
+
+
+            _areaScore = GeoAreaCalculator.CalculateArea(_locations[0].x, _locations[0].y, _locations[1].x, _locations[1].y, _locations[2].x, _locations[2].y);
+
+        }
+
+        public void CalculatePOIVariables()
+        {
+            List<string> POIName = _locationDatas.Select(x => x.Name).ToList();
+
+            foreach(var poiName in POIName)
+            {
+                CharacterSO characterSO = GachaManager.Instance.GetSOByName(poiName);
+            }
+        }
+
+
+        public int CalculateTotal()
+        {
+            return (int)((_areaScore + _areaPlus) * _multiplier);
+        }
+
+
+        public void ResolvePoints()
         {
             _baseZoom = _map.Zoom;
 
@@ -259,20 +371,16 @@ namespace Mapbox.Examples
             }
 
 
-            Vector2d centerPosition = GetCenterPosition(_locations);
+            CalculateArea();
 
-            QuadTreeCameraMovement.Instance.SetCameraPosition(new Vector3(0, 0, 0));
+            int TotalScore = CalculateTotal();
 
-            _map.UpdateMap(centerPosition);
+            if(!_locationDatas.Any(x => x.isDebug))
+            {
+                GameManager.Instance.AddScore((int)TotalScore);
+            }
 
-            _panSequence = true;
-
-
-            _areaScore = GeoAreaCalculator.CalculateArea(_locations[0].x, _locations[0].y, _locations[1].x, _locations[1].y, _locations[2].x, _locations[2].y);
-
-            GameManager.Instance.AddScore((int)_areaScore);
-
-            GameManager.Instance.PopupMessage((int)_areaScore);
+            GameManager.Instance.PopupMessage((int)TotalScore, (int)_areaScore, (int)_areaPlus, (int)_multiplier);
 
             GameManager.Instance.SaveProgress();
         }

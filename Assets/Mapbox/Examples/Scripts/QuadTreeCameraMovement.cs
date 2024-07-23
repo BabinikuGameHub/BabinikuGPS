@@ -1,4 +1,4 @@
-﻿using Mapbox.Unity.Map;
+using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
 using UnityEngine;
@@ -32,6 +32,9 @@ namespace Mapbox.Examples
 
         [SerializeField]
 		bool _useDegreeMethod;
+
+		[SerializeField]
+		GameObject _debugReticle;
 
 		private float _zoom;
 
@@ -237,6 +240,10 @@ namespace Mapbox.Examples
 		{
 			_isFollowingPlayer = false;
 
+			_debugReticle.SetActive(true);
+
+            MapPOIManager.Instance.PoiDebug = true;
+
             _referenceCamera.transform.position = new Vector3(cameraPoint.x, _referenceCamera.transform.position.y, cameraPoint.z);
         }
 
@@ -244,7 +251,12 @@ namespace Mapbox.Examples
         {
 			_isFollowingPlayer = true;
 
-			Zoom = 17f;
+
+            _debugReticle.SetActive(false);
+
+			MapPOIManager.Instance.PoiDebug = false;
+
+            Zoom = 17f;
 
 			if(_currentLocation.Provider != null)
             {
@@ -279,7 +291,11 @@ namespace Mapbox.Examples
 			{
 				_isFollowingPlayer = false;
 
-				if(_cameraResetRoutine != null)
+                _debugReticle.SetActive(true);
+
+                MapPOIManager.Instance.PoiDebug = true;
+
+                if (_cameraResetRoutine != null)
 				{
 					StopCoroutine(_cameraResetRoutine);
 				}

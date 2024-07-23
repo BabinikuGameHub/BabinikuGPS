@@ -15,5 +15,8 @@ MonoBehaviour:
   uniqueID: 5cbdc94b-4608-4b44-90e7-3adfda123565
   CharacterName: "\uC5D0\uC774\uD558\uBE0C"
   CharacterDescription: "\uC5D0\uC774\uD558\uBE0C \uD568\uC7A5\uB2D8"
+  AbilityDescription: "P\uC5D0 100\uC744 \uB354\uD569\uB2C8\uB2E4"
+  Level: 1
+  Type: 0
   CharacterSprite: {fileID: -1515270848, guid: 5907ba37fc077cf46b42b9e7a63ee9e3, type: 3}
   CharacterPrefab: {fileID: 3168745152729831597, guid: 7ba370083590af146ac0008e20e1e727, type: 3}

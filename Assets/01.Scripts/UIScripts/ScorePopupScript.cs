@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,6 +24,15 @@ public class ScorePopupScript : MonoBehaviour
         Destroy(this.gameObject, 3f);
 
         //StartCoroutine(PopupCoroutine());
+    }
+
+    public void PopupScoreEvent(int score, int baseArea, int areaPlus, int multiplier)
+    {
+        this.gameObject.SetActive(true);
+
+        _scoreText.text = $"({baseArea} + {areaPlus}) x {multiplier} \n {score}점 획득!!";
+
+        Destroy(this.gameObject, 3f);
     }
 
     public void PopupScoreEvent(int score)

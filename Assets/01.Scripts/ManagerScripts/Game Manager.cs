@@ -279,6 +279,13 @@ public class GameManager : MonoBehaviour
         ScorePopupScript scorePopupScript = popup.GetComponent<ScorePopupScript>();
         scorePopupScript.PopupScoreEvent(score);
     }
+
+    public void PopupMessage(int score, int areaBase, int areaPlus, int multiplier)
+    {
+        GameObject popup = Instantiate(_popupPrefab, CommonPanel.transform);
+        ScorePopupScript scorePopupScript = popup.GetComponent<ScorePopupScript>();
+        scorePopupScript.PopupScoreEvent(score, areaBase, areaPlus, multiplier);
+    }
 }
 
 [System.Serializable]

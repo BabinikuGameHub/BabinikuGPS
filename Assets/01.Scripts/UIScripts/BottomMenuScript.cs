@@ -26,13 +26,18 @@ public class BottomMenuScript : MonoBehaviour
 
     private CurrentPanel _currentPanel;
 
+    private const int PANELCOUNT = 2;
+    private int _currentPanelIndex = 0;
+
+
+
     private void Start()
     {
         OnGachaButtonClick();
 
     }
 
-    //가챠화면으로 전환
+     //가챠화면으로 전환
     public void OnGachaButtonClick()
     {
         if (_currentPanel == CurrentPanel.GACHA)
@@ -104,6 +109,53 @@ public class BottomMenuScript : MonoBehaviour
 
         _currentPanel = CurrentPanel.CAFE;
     }    
+
+
+    //좌우 전환방식
+    public void OpenMenu()
+    {
+
+    }
+
+    public void PanelToggleRight()
+    {
+        _currentPanelIndex++;
+        
+        if(_currentPanelIndex > PANELCOUNT)
+        {
+            _currentPanelIndex = 0;
+        }
+
+        UpdatePanel();
+    }
+
+    public void PanelToggleLeft()
+    {
+        _currentPanelIndex--;
+
+        if (_currentPanelIndex < 0)
+        {
+            _currentPanelIndex = 2;
+        }
+
+        UpdatePanel();
+    }
+
+    public void UpdatePanel()
+    {
+        if(_currentPanelIndex == 0)
+        {
+            OnGachaButtonClick();
+        }
+        else if (_currentPanelIndex == 1)
+        {
+            OnMapButtonClick();
+        }
+        else if (_currentPanelIndex == 2)
+        {
+            OnCafeButtonClick();
+        }
+    }
 }
 
 public enum CurrentPanel

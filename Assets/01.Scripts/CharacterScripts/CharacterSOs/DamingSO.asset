@@ -15,5 +15,9 @@ MonoBehaviour:
   uniqueID: 1810e31d-c0b0-45e1-a581-7b9e5ebc77a6
   CharacterName: "\uB2E4\uBC0D"
   CharacterDescription: "\uB2E4\uB78C\uC950 \uB2E4\uBC0D"
+  AbilityDescription: "\uB098\uBA38\uC9C0 \uB450 \uD540\uC774 P\uD540\uC774\uB77C\uBA74
+    P\uD540\uC5D0 800\uC744 \uCD94\uAC00\uD569\uB2C8\uB2E4"
+  Level: 1
+  Type: 0
   CharacterSprite: {fileID: 422789109, guid: 4b3001ad65044bd44b3d5061052ba4cb, type: 3}
   CharacterPrefab: {fileID: 7864553833128315066, guid: 24cf58965206b3b45b70878d9550de3e, type: 3}

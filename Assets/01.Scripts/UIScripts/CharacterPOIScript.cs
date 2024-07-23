@@ -26,7 +26,14 @@ public class CharacterPOIScript : MonoBehaviour
         if (count <= 0)
             return;
 
-        MapPOIManager.Instance.CreatePOI(_characterSO);
+        if ( MapPOIManager.Instance.PoiDebug == true)
+        {
+            MapPOIManager.Instance.CreatePOIDebug(_characterSO);
+        }
+        else
+        {
+            MapPOIManager.Instance.CreatePOI(_characterSO);
+        }
 
         POIPanelScript parentScript = gameObject.GetComponentInParent<POIPanelScript>();
         parentScript.TurnOffPanel();

@@ -17,6 +17,13 @@ public class GachaManager : MonoBehaviour
 
     }
 
+    private void RollGatcha()
+    {
+        List<CharacterSO> lv1List = AllCharacterList.Where(x => x.Level == 1).ToList();
+        List<CharacterSO> lv2List = AllCharacterList.Where(x => x.Level == 2).ToList();
+        List<CharacterSO> lv3List = AllCharacterList.Where(x => x.Level == 3).ToList();
+    }
+
     public CharacterSO RollSingleCharacter()
     {
         int num = GameManager.Instance.Rand.Next(AllCharacterList.Count);

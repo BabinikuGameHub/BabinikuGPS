@@ -18,13 +18,15 @@ public class BottomMenuScript : MonoBehaviour
     [SerializeField] GameObject _mapButton;
     [SerializeField] GameObject _gachaButton;
 
+    [SerializeField] CenterPanelScript _centerPanelScript;
+
     public UnityEvent OnPanelChange;
 
     public UnityEvent OnMapPanelEnter;
     public UnityEvent OnGachaPanelEnter;
     public UnityEvent OnCafePanelEnter;
 
-    private CurrentPanel _currentPanel;
+    public CurrentPanel CurrentPanel;
 
     private const int PANELCOUNT = 2;
     private int _currentPanelIndex = 0;
@@ -40,7 +42,7 @@ public class BottomMenuScript : MonoBehaviour
      //가챠화면으로 전환
     public void OnGachaButtonClick()
     {
-        if (_currentPanel == CurrentPanel.GACHA)
+        if (CurrentPanel == CurrentPanel.GACHA)
             return;
 
         OnPanelChange?.Invoke();
@@ -54,18 +56,19 @@ public class BottomMenuScript : MonoBehaviour
         _gachaField.SetActive(true);
         _gachaUI.SetActive(true);
 
-        _gachaButton.SetActive(true);
+        CurrentPanel = CurrentPanel.GACHA;
+        _centerPanelScript.UpdateCurrentPanel(CurrentPanel);
+
         _mapButton.SetActive(false);
         _cafeButton.SetActive(false);
-
-        _currentPanel = CurrentPanel.GACHA;
+        _gachaButton.SetActive(true);
 
     }
 
     //지도 화면으로 전환
     public void OnMapButtonClick()
     {
-        if (_currentPanel == CurrentPanel.MAP)
+        if (CurrentPanel == CurrentPanel.MAP)
             return;
 
         OnPanelChange?.Invoke();
@@ -79,17 +82,19 @@ public class BottomMenuScript : MonoBehaviour
         _gachaField.SetActive(false);
         _gachaUI.SetActive(false);
 
-        _gachaButton.SetActive(false);
-        _mapButton.SetActive(true);
-        _cafeButton.SetActive(false);
+        CurrentPanel = CurrentPanel.MAP;
+        _centerPanelScript.UpdateCurrentPanel(CurrentPanel);
 
-        _currentPanel = CurrentPanel.MAP;
+        _gachaButton.SetActive(false);
+        _cafeButton.SetActive(false);
+        _mapButton.SetActive(true);
+
     }
 
     //카페 화면으로 전환
     public void OnCafeButtonClick()
     {
-        if (_currentPanel == CurrentPanel.CAFE)
+        if (CurrentPanel == CurrentPanel.CAFE)
             return;
 
         OnPanelChange?.Invoke();
@@ -103,12 +108,14 @@ public class BottomMenuScript : MonoBehaviour
         _gachaField.SetActive(false);
         _gachaUI.SetActive(false);
 
+        CurrentPanel = CurrentPanel.CAFE;
+        _centerPanelScript.UpdateCurrentPanel(CurrentPanel);
+
         _gachaButton.SetActive(false);
         _mapButton.SetActive(false);
         _cafeButton.SetActive(true);
 
-        _currentPanel = CurrentPanel.CAFE;
-    }    
+    }
 
 
     //좌우 전환방식
@@ -143,7 +150,7 @@ public class BottomMenuScript : MonoBehaviour
 
     public void UpdatePanel()
     {
-        if(_currentPanelIndex == 0)
+        if (_currentPanelIndex == 0)
         {
             OnGachaButtonClick();
         }
@@ -155,6 +162,7 @@ public class BottomMenuScript : MonoBehaviour
         {
             OnCafeButtonClick();
         }
+
     }
 }
 

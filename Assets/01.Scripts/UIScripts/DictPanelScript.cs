@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DictPanelScript : MonoBehaviour
+public class DictPanelScript : PanelScript
 {
     public static DictPanelScript Instance;
 
@@ -23,19 +23,25 @@ public class DictPanelScript : MonoBehaviour
         Instance = this;
     }
 
-    public void TurnOnList()
+    public override void TurnOnPanel()
     {
+
         if (DictList.activeSelf == true)
             return;
 
         DictList.SetActive(true);
         CreateDictList();
+
+
+        base.TurnOnPanel();
     }
 
-    public void TurnOffList()
+    public override void TurnOffPanel()
     {
         DictList.SetActive(false);
         DictSpecific.SetActive(false);
+
+        base.TurnOffPanel();
     }
 
     public void TurnOnSpecific(CharacterSO characterSO)

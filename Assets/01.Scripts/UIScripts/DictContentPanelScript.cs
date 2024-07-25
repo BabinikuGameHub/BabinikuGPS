@@ -8,6 +8,7 @@ public class DictContentPanelScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _name;
     [SerializeField] TextMeshProUGUI _description;
+    [SerializeField] TextMeshProUGUI _abilityDescription;
     [SerializeField] Image _icon;
 
     CharacterSO _currentCharacterSO;
@@ -20,6 +21,7 @@ public class DictContentPanelScript : MonoBehaviour
 
         _name.text = _currentCharacterSO.CharacterName;
         _description.text = _currentCharacterSO.CharacterDescription;
+        _abilityDescription.text = _currentCharacterSO.AbilityDescription;
         _icon.sprite = _currentCharacterSO.CharacterSprite;
     }
 }

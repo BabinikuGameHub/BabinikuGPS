@@ -2,23 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class POIPanelScript : MonoBehaviour
+public class POIPanelScript : PanelScript
 {
     [SerializeField] private GameObject _characterHolder;
     [SerializeField] private GameObject _poiPrefab;
     [SerializeField] private GameObject _yellowFrameButton;
 
-    public void TurnOnPanel()
+    public override void TurnOnPanel()
     {
         gameObject.SetActive(true);
         _yellowFrameButton.SetActive(false);
         InitializeCharHolder();
+
+        base.TurnOnPanel();
     }
 
-    public void TurnOffPanel()
+    public override void TurnOffPanel()
     {
         gameObject.SetActive(false);
         _yellowFrameButton.SetActive(true);
+
+        base.TurnOffPanel();
     }
     
     private void InitializeCharHolder()

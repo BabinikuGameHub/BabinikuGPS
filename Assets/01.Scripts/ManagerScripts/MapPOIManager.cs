@@ -23,6 +23,11 @@ namespace Mapbox.Examples
         public bool isDebug = false;
         [Serialize] public DateTime TimeStamp;
 
+        public CharacterSO GetCharacterSO()
+        {
+            return GachaManager.Instance.GetSOByName(Name);
+        }
+
     }
 
     public class MapPOIManager : MonoBehaviour
@@ -348,8 +353,31 @@ namespace Mapbox.Examples
         }
 
 
-        public int CalculateTotal()
+        public int CalculateCharacterAbility()
         {
+            List<CharacterSO> charSOList = new();
+            List<CharacterAbility> charAbilityList = new();
+
+            foreach (POICharacterData charData in _locationDatas)
+            {
+                CharacterSO dataSO = charData.GetCharacterSO();
+                CharacterAbility dataAbility = charData.GetCharacterSO().CharacterPrefab.GetComponent<CharacterAbility>();
+
+                charSOList.Add(dataSO);
+                charAbilityList.Add(dataAbility);
+
+            }
+
+            foreach(CharacterAbility charAbility in charAbilityList)
+            {
+                charAbility.AddCharacterReferences(charSOList);
+
+                _areaPlus = charAbility.CalculatePValue(_areaPlus);
+                _multiplier = charAbility.CalculateXValue(_multiplier);
+            }
+
+
+
             return (int)((_areaScore + _areaPlus) * _multiplier);
         }
 
@@ -373,7 +401,7 @@ namespace Mapbox.Examples
 
             CalculateArea();
 
-            int TotalScore = CalculateTotal();
+            int TotalScore = CalculateCharacterAbility();
 
             if(!_locationDatas.Any(x => x.isDebug))
             {

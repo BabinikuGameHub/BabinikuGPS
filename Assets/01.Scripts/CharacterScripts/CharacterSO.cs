@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 [CreateAssetMenu( menuName = "ScriptableObject/CharacterSO")]
 
@@ -27,6 +28,19 @@ public class CharacterSO : ScriptableObject
         }
     }
 
+    public override bool Equals(object obj)
+    {
+        // Check for null and compare run-time types.
+        if (obj == null || GetType() != obj.GetType()) return false;
+
+        CharacterSO other = (CharacterSO)obj;
+        return CharacterName == other.CharacterName && Level == other.Level;
+    }
+
+    public override int GetHashCode()
+    {
+        return CharacterName.GetHashCode() ^ Level.GetHashCode();
+    }
 
 }
 

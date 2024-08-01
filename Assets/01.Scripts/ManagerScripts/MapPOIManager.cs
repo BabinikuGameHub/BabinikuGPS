@@ -368,15 +368,20 @@ namespace Mapbox.Examples
 
             }
 
-            foreach(CharacterAbility charAbility in charAbilityList)
+            for(int i = 0; i < charAbilityList.Count; i++)
             {
-                charAbility.AddCharacterReferences(charSOList);
+                CharacterAbility currentChar = charAbilityList[i];
 
-                _areaPlus = charAbility.CalculatePValue(_areaPlus);
-                _multiplier = charAbility.CalculateXValue(_multiplier);
+                List<CharacterSO> referenceList = new(charSOList);
+                referenceList.RemoveAt(i);
+
+                currentChar.AddCharacterReferences(referenceList);
+
+
+                _areaPlus = currentChar.CalculatePValue(_areaPlus);
+                _multiplier = currentChar.CalculateXValue(_multiplier);
+
             }
-
-
 
             return (int)((_areaScore + _areaPlus) * _multiplier);
         }

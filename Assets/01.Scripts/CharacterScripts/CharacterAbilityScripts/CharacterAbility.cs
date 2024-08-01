@@ -15,15 +15,16 @@ public class CharacterAbility : MonoBehaviour
         _level = _thisCharacterSO.Level;
     }
 
-    public virtual void AddCharacterReferences(List<CharacterSO> otherCharacterReference)
+    public virtual void AddCharacterReferences(List<CharacterSO> otherCharactersList)
     {
-        foreach(CharacterSO character in otherCharacterReference)
-        {
-            if (!character.Equals(_thisCharacterSO))
-            {
-                otherCharacterReference.Add(character);
-            }
-        }
+        otherCharacterReference = new();
+
+        otherCharacterReference.AddRange(otherCharactersList);
+
+        //foreach (CharacterSO character in otherCharactersList)
+        //{
+        //    otherCharacterReference.Add(character);
+        //}
     }
 
     public virtual double CalculatePValue(double pValue)

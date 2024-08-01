@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2358003385905491986, guid: 94d5e8a7adbdc8c4a984ee9ab927e17f, type: 3}
       propertyPath: m_Name
-      value: Saruko Variant
+      value: Saruko
       objectReference: {fileID: 0}
     - target: {fileID: 4644460956442571131, guid: 94d5e8a7adbdc8c4a984ee9ab927e17f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -75,5 +75,26 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2358003385905491986, guid: 94d5e8a7adbdc8c4a984ee9ab927e17f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3710014083445344577}
   m_SourcePrefab: {fileID: 100100000, guid: 94d5e8a7adbdc8c4a984ee9ab927e17f, type: 3}
+--- !u!1 &7018752225364037724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2358003385905491986, guid: 94d5e8a7adbdc8c4a984ee9ab927e17f, type: 3}
+  m_PrefabInstance: {fileID: 4746462368452501582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3710014083445344577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018752225364037724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdedaa35f40704541a93b8f1eb47eb15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _thisCharacterSO: {fileID: 0}

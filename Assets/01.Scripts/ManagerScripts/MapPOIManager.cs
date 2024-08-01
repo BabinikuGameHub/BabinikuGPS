@@ -355,6 +355,9 @@ namespace Mapbox.Examples
 
         public int CalculateCharacterAbility()
         {
+            _areaPlus = 0;
+            _multiplier = 1;
+
             List<CharacterSO> charSOList = new();
             List<CharacterAbility> charAbilityList = new();
 

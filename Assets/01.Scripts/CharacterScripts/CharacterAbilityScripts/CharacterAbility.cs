@@ -5,15 +5,10 @@ using UnityEngine;
 public class CharacterAbility : MonoBehaviour
 {
     [SerializeField] protected CharacterSO _thisCharacterSO;
-    protected int _level;
+    protected int _level => _thisCharacterSO.Level;
     protected List<CharacterSO> otherCharacterReference = new List<CharacterSO>();
 
     // Start is called before the first frame update
-
-    private void Start()
-    {
-        _level = _thisCharacterSO.Level;
-    }
 
     public virtual void AddCharacterReferences(List<CharacterSO> otherCharactersList)
     {

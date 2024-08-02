@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
-  m_Name: Ahab2SO
+  m_Name: Ahab3SO
   m_EditorClassIdentifier: 
   uniqueID: 5cbdc94b-4608-4b44-90e7-3adfda123565
-  CharacterName: "\uC5D0\uC774\uD558\uBE0C Lv.2"
+  CharacterName: "\uC5D0\uC774\uD558\uBE0C Lv.3"
   CharacterDescription: "\uC5D0\uC774\uD558\uBE0C \uD568\uC7A5\uB2D8"
-  AbilityDescription: "X\uC5D0 4\uB97C \uB354\uD569\uB2C8\uB2E4"
-  Level: 2
+  AbilityDescription: "X\uC5D0 6\uB97C \uB354\uD569\uB2C8\uB2E4"
+  Level: 3
   Type: 1
   CharacterSprite: {fileID: -1515270848, guid: 5907ba37fc077cf46b42b9e7a63ee9e3, type: 3}
-  CharacterPrefab: {fileID: 3168745152729831597, guid: 52ffa6d1d47cc6a4aafc0f58402bb393, type: 3}
+  CharacterPrefab: {fileID: 3168745152729831597, guid: 6f5e36c846e594c4eb1f5600d441af18, type: 3}

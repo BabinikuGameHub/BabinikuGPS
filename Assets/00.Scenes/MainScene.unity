@@ -372,6 +372,18 @@ PrefabInstance:
       propertyPath: CommonPanel
       value: 
       objectReference: {fileID: 2085052091}
+    - target: {fileID: 8593169693630460110, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
+      propertyPath: AllCharacterList.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593169693630460110, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
+      propertyPath: AllCharacterList.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1836cb1373efa1c4c926ba698243685e, type: 2}
+    - target: {fileID: 8593169693630460110, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
+      propertyPath: AllCharacterList.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: f56aeff9897db504f8d8b1b05fb983af, type: 2}
     - target: {fileID: 8678998990394143895, guid: bb33188b14ef9cb4cb6fcec407b020e5, type: 3}
       propertyPath: cafeCamera
       value: 

@@ -159,7 +159,15 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < characterList.Count; i++)
         {
-            newDict.Add(characterList[i], characters[i]);
+            if(i >= characters.Length || characters.Length == 0)
+            {
+                newDict.Add(characterList[i], 0);
+            }
+            else
+            {
+                newDict.Add(characterList[i], characters[i]);
+            }
+
         }
 
         _currentCharacters = newDict;

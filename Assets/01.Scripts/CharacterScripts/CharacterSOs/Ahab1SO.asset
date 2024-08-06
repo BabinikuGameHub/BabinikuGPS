@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
+  m_Name: Ahab1SO
+  m_EditorClassIdentifier: 
+  uniqueID: 5cbdc94b-4608-4b44-90e7-3adfda123565
+  CharacterName: "\uC5D0\uC774\uD558\uBE0C"
+  CharacterDescription: "\uC5D0\uC774\uD558\uBE0C \uD568\uC7A5\uB2D8"
+  AbilityDescription: "X\uC5D0 2\uB97C \uB354\uD569\uB2C8\uB2E4."
+  Level: 1
+  Type: 1
+  CharacterSprite: {fileID: 21300000, guid: e42ed8e8e9d33d946a3f06e069eb0053, type: 3}
+  CharacterPrefab: {fileID: 3168745152729831597, guid: 7ba370083590af146ac0008e20e1e727, type: 3}

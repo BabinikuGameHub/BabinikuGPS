@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
+  m_Name: Daming2SO
+  m_EditorClassIdentifier: 
+  uniqueID: 1810e31d-c0b0-45e1-a581-7b9e5ebc77a6
+  CharacterName: "\uB2E4\uBC0D Lv.2"
+  CharacterDescription: "\uB2E4\uB78C\uC950 \uB2E4\uBC0D"
+  AbilityDescription: "\uB098\uBA38\uC9C0 \uB450 \uD540\uC774 P\uD540\uC774\uB77C\uBA74
+    P\uD540\uC5D0 1800\uC744 \uCD94\uAC00\uD569\uB2C8\uB2E4"
+  Level: 2
+  Type: 0
+  CharacterSprite: {fileID: 21300000, guid: 4b9ece461f5ffad449a89c3bd556f983, type: 3}
+  CharacterPrefab: {fileID: 7864553833128315066, guid: 79ad15c153c35304f927d724aa00301a, type: 3}

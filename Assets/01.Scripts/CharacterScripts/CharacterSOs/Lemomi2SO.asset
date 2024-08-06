@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4792b55c5dc57246b29c4ab9c9a9a1d, type: 3}
+  m_Name: Lemomi2SO
+  m_EditorClassIdentifier: 
+  uniqueID: 0178bac6-59d3-4a05-8b03-7d5cc46dd563
+  CharacterName: "\uB808\uBAA8\uBBF8 lv2"
+  CharacterDescription: "\uB124\uC624 \uD64B\uCE74\uC774\uB3C4 \uB2CC\uC790"
+  AbilityDescription: "\uB098\uBA38\uC9C0 \uB450 \uD540\uC774 P\uD540\uC774\uB77C\uBA74
+    X\uC5D0 5\uC744 \uB354\uD569\uB2C8\uB2E4"
+  Level: 2
+  Type: 1
+  CharacterSprite: {fileID: 21300000, guid: 68a6d2ea154fcb04697da27d0c48016b, type: 3}
+  CharacterPrefab: {fileID: 9071470947473309158, guid: 826d7fa12e582ee42b8fa9f3cae473a0, type: 3}

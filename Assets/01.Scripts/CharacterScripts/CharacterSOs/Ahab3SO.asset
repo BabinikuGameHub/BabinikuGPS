@@ -18,5 +18,5 @@ MonoBehaviour:
   AbilityDescription: "X\uC5D0 6\uB97C \uB354\uD569\uB2C8\uB2E4"
   Level: 3
   Type: 1
-  CharacterSprite: {fileID: -1515270848, guid: 5907ba37fc077cf46b42b9e7a63ee9e3, type: 3}
+  CharacterSprite: {fileID: 21300000, guid: e815c466c3818854ea877028a9670132, type: 3}
   CharacterPrefab: {fileID: 3168745152729831597, guid: 6f5e36c846e594c4eb1f5600d441af18, type: 3}
